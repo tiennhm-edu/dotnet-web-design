@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+  Trang Đăng ký – trọng tâm: FORM (method POST, input types HTML5, validation).
+  Header/nav/footer giống index.html (đã giải thích ở đó). Trên website thật,
+  phần lặp lại này sẽ do server/framework ghép vào (vd. _Layout.cshtml trong ASP.NET).
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -74,6 +79,10 @@
   </header>
 
   <!-- ================= MAIN ================= -->
+  <!--
+    <main> chứa nội dung chính; class "container form-page" = ghép 2 class:
+    container (độ rộng + căn giữa) và form-page (giới hạn 720px).
+  -->
   <main class="container form-page">
     <div class="form-card">
       <h1>Đăng ký thành viên CyberShop</h1>
@@ -86,11 +95,35 @@
           <code>pattern</code>, <code>min</code>/<code>max</code>, <code>type="email"</code>…</p>
       </div>
 
+      <!--
+        GET vs POST:
+        - GET: dữ liệu nằm trên URL (?a=1&b=2) → hiện trong lịch sử, bookmark được;
+          dùng cho tìm kiếm/lọc.
+        - POST: dữ liệu nằm trong BODY của request → không lộ trên URL;
+          dùng khi tạo/sửa dữ liệu, gửi mật khẩu. (Vẫn cần HTTPS để mã hóa đường truyền!)
+        target="_blank": mở kết quả trả về ở tab mới để không mất trang form.
+      -->
       <form action="https://httpbin.org/post" method="post" target="_blank">
         <fieldset>
+          <!--
+            <fieldset> + <legend>: nhóm các ô cùng chủ đề; trình đọc màn hình đọc legend
+            trước mỗi ô trong nhóm.
+          -->
           <legend>Thông tin tài khoản</legend>
           <div class="form-grid two-cols">
             <div class="field">
+              <!--
+                label for="username" ↔ input id="username": bấm vào chữ là focus vào ô,
+                trình đọc màn hình đọc đúng tên ô. ⚠️ Lỗi hay gặp: for và id không khớp nhau.
+                Các thuộc tính kiểm tra (validation) trình duyệt tự làm, chưa cần JavaScript:
+                  required            bắt buộc nhập
+                  minlength/maxlength độ dài chuỗi
+                  pattern             biểu thức chính quy (regex) giá trị phải khớp
+                autocomplete giúp trình duyệt gợi ý đúng loại dữ liệu đã lưu.
+                aria-describedby nối ô nhập với dòng gợi ý (đọc kèm khi focus).
+                ⚠️ Lỗi hay gặp: dùng placeholder THAY cho label – placeholder biến mất khi gõ.
+                ⚠️ Validation phía trình duyệt có thể bị bỏ qua → server LUÔN phải kiểm tra lại.
+              -->
               <label for="username" class="required">Tên đăng nhập</label>
               <input id="username" name="username" type="text" required minlength="4" maxlength="20"
                 pattern="[a-zA-Z0-9_]+" autocomplete="username" placeholder="vd: nguyenvana_dev"
@@ -98,16 +131,22 @@
               <small id="username-hint" class="hint">4–20 ký tự: chữ không dấu, số, dấu gạch dưới.</small>
             </div>
             <div class="field">
+              <!-- type="email": tự kiểm tra định dạng có @; trên mobile hiện bàn phím có phím @. -->
               <label for="email" class="required">Email</label>
               <input id="email" name="email" type="email" required autocomplete="email" placeholder="ban@example.com">
             </div>
             <div class="field">
+              <!-- type="password": che ký tự; autocomplete="new-password" gợi ý tạo mật khẩu mới. -->
               <label for="password" class="required">Mật khẩu</label>
               <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password"
                 aria-describedby="password-hint">
               <small id="password-hint" class="hint">Tối thiểu 8 ký tự.</small>
             </div>
             <div class="field">
+              <!--
+                type="tel": bàn phím số trên mobile (KHÔNG tự kiểm tra định dạng)
+                → dùng pattern="0[0-9]{9}": chữ số 0 rồi đúng 9 chữ số nữa.
+              -->
               <label for="phone" class="required">Số điện thoại</label>
               <input id="phone" name="phone" type="tel" required pattern="0[0-9]{9}" autocomplete="tel"
                 placeholder="0900000000" aria-describedby="phone-hint">
@@ -124,10 +163,19 @@
               <input id="fullname" name="fullname" type="text" required autocomplete="name" placeholder="Nguyễn Văn A">
             </div>
             <div class="field">
+              <!--
+                type="date": trình duyệt hiện bộ chọn ngày; min/max giới hạn khoảng cho phép
+                (giá trị luôn theo dạng YYYY-MM-DD dù hiển thị kiểu gì).
+              -->
               <label for="birthday">Ngày sinh</label>
               <input id="birthday" name="birthday" type="date" min="1950-01-01" max="2012-12-31">
             </div>
             <div class="field">
+              <!--
+                Nhóm radio: CÙNG name="gender" → chỉ chọn được một. checked = chọn sẵn.
+                Không có một ô duy nhất để gắn <label for>, nên dùng role="radiogroup" +
+                aria-labelledby để đặt tên cho cả nhóm.
+              -->
               <span class="field-label" id="gender-label">Giới tính</span>
               <div class="inline-options" role="radiogroup" aria-labelledby="gender-label">
                 <label><input type="radio" name="gender" value="male"> Nam</label>
@@ -136,6 +184,10 @@
               </div>
             </div>
             <div class="field">
+              <!--
+                <datalist>: danh sách GỢI Ý cho input (nối bằng list="city-list"),
+                người dùng vẫn gõ được giá trị khác – khác với <select> chỉ cho chọn sẵn.
+              -->
               <label for="city">Tỉnh/Thành phố</label>
               <input id="city" name="city" type="text" list="city-list" placeholder="Gõ để chọn...">
               <datalist id="city-list">
@@ -147,10 +199,12 @@
               </datalist>
             </div>
             <div class="field">
+              <!-- type="url": kiểm tra phải là địa chỉ đầy đủ (có https://). -->
               <label for="website">Website / GitHub</label>
               <input id="website" name="website" type="url" placeholder="https://github.com/ten-ban">
             </div>
             <div class="field">
+              <!-- type="number" + min/max/step: chỉ nhận số trong khoảng; value = giá trị mặc định. -->
               <label for="orders">Số đơn mua mỗi tháng (dự kiến)</label>
               <input id="orders" name="orders" type="number" min="0" max="100" step="1" value="2">
             </div>
@@ -161,6 +215,10 @@
           <legend>Sở thích mua sắm</legend>
           <div class="form-grid">
             <div class="field">
+              <!--
+                Checkbox: chọn NHIỀU; cùng name="interests" → server nhận một danh sách giá trị.
+                value là thứ được GỬI đi, chữ hiển thị chỉ để người dùng đọc.
+              -->
               <span class="field-label" id="interest-label">Danh mục quan tâm</span>
               <div class="inline-options" role="group" aria-labelledby="interest-label">
                 <label><input type="checkbox" name="interests" value="fashion"> Thời trang</label>
@@ -171,6 +229,7 @@
             </div>
             <div class="form-grid two-cols">
               <div class="field">
+                <!-- <select> + <optgroup> (nhóm lựa chọn) + <option selected> (chọn sẵn). -->
                 <label for="channel">Nhận khuyến mãi qua</label>
                 <select id="channel" name="channel">
                   <optgroup label="Trực tuyến">
@@ -183,6 +242,7 @@
                 </select>
               </div>
               <div class="field">
+                <!-- type="color" (bảng chọn màu) và type="range" (thanh trượt) – các input HTML5 mới. -->
                 <label for="fav-color">Màu yêu thích</label>
                 <input id="fav-color" name="favColor" type="color" value="#ff5722">
               </div>
@@ -192,6 +252,10 @@
               </div>
             </div>
             <div class="field">
+              <!--
+                <textarea>: nhập nhiều dòng; rows = chiều cao ban đầu, maxlength giới hạn ký tự.
+                ⚠️ Lỗi hay gặp: viết <textarea/> tự đóng – textarea BẮT BUỘC có thẻ đóng.
+              -->
               <label for="note">Ghi chú</label>
               <textarea id="note" name="note" rows="3" maxlength="300" placeholder="Bạn muốn CyberShop phục vụ điều gì?"></textarea>
             </div>
@@ -199,14 +263,24 @@
         </fieldset>
 
         <div class="field">
+          <!-- Checkbox bắt buộc (required): phải tích mới submit được. -->
           <label class="inline-options">
             <input type="checkbox" name="agree" value="yes" required>
             <span class="required">Tôi đồng ý với điều khoản sử dụng của CyberShop</span>
           </label>
         </div>
 
+        <!--
+          type="hidden": gửi kèm dữ liệu người dùng không thấy (vd. nguồn đăng ký).
+          Không dùng để giấu bí mật – xem được bằng View Source/DevTools.
+        -->
         <input type="hidden" name="source" value="cybershop-register">
 
+        <!--
+          type="reset" xóa về giá trị ban đầu; type="submit" gửi form.
+          ⚠️ Lỗi hay gặp: <button> trong form mặc định là submit – nút làm việc khác
+             phải ghi rõ type="button".
+        -->
         <div class="form-actions">
           <button class="btn btn-outline" type="reset">Nhập lại</button>
           <button class="btn btn-primary" type="submit">Đăng ký</button>

@@ -10,6 +10,12 @@ Toàn bộ trình bày nằm trong **một file CSS external** viết theo hư�
 | `register.html` | Form đăng ký – **POST**, input types HTML5, thuộc tính validation |
 | `css-lab.html` | Góc học tập: selector quan hệ, pseudo-class, specificity, `!important` |
 
+## Đọc code ở đâu trước
+
+1. `index.html` – comment đầu `<body>` tóm tắt các thẻ semantic; mỗi khối giải thích class nào được CSS dùng để làm gì.
+2. `css/style.css` – đọc theo mục lục 1 → 13; mỗi nhóm rule có comment giải thích khái niệm (box model, Flexbox, Grid, position, `@keyframes`, media query) và các `⚠️ Lỗi hay gặp`.
+3. `register.html` (form POST + validation) → `search.html` (form GET) → `css-lab.html` (specificity, mở cùng DevTools).
+
 ## Mục tiêu
 
 - Tách nội dung (HTML) và trình bày (CSS) bằng `<link rel="stylesheet">`.

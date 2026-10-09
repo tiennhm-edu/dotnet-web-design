@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+  Trang chủ của repo trên GitHub Pages: giới thiệu và dẫn tới 3 dự án P3, P4, P5.
+  Trang chỉ có một file nên CSS đặt trong thẻ <style> (internal CSS) –
+  kiểu thứ ba bên cạnh inline style (P3) và file CSS riêng (P4, P5).
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -6,6 +11,13 @@
   <meta name="description" content="Dự án mẫu Phần 3 - Thiết kế web (HTML, CSS, Bootstrap) khóa .NET Full-stack.">
   <title>Thiết kế Web - .NET Full-stack</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <!--
+    Dark mode không cần JavaScript: media query prefers-color-scheme: dark đọc cài đặt
+    sáng/tối của hệ điều hành và khai báo lại các biến màu trong :root.
+    Mọi rule bên dưới chỉ dùng var(...) nên tự đổi màu theo.
+    clamp(28px, 5vw, 42px) ở h1: cỡ chữ co giãn theo màn hình nhưng không nhỏ hơn 28px,
+    không lớn hơn 42px.
+  -->
   <style>
     :root {
       --bg: #f6f7fb;
@@ -211,6 +223,7 @@
   </style>
 </head>
 <body>
+  <!-- Bố cục semantic: header (giới thiệu) – main (nội dung chính) – footer. -->
   <header class="wrap">
     <p class="eyebrow">Khóa .NET Full-stack · Phần 3 · Buổi 14–22</p>
     <h1>Thiết kế Web: HTML, CSS, Bootstrap</h1>
@@ -218,6 +231,11 @@
   </header>
 
   <main class="wrap">
+    <!--
+      Mỗi thẻ dự án là MỘT liên kết <a class="card"> bọc cả khối → bấm vào đâu cũng mở được.
+      HTML5 cho phép <a> chứa nội dung block (div, h2, p) miễn là bên trong không có
+      liên kết hay nút khác. Lưới: 1 cột trên mobile, 3 cột từ 720px (CSS Grid).
+    -->
     <div class="grid">
       <a class="card" href="P3-code-cafe/index.html">
         <div class="thumb t-cafe" aria-hidden="true">☕</div>
@@ -242,6 +260,10 @@
       </a>
     </div>
 
+    <!--
+      Bảng lộ trình: <th scope="col"> cho tiêu đề cột; bọc trong .table-scroll
+      (overflow-x: auto) để cuộn ngang trên điện thoại.
+    -->
     <h2 class="section">Lộ trình buổi học</h2>
     <div class="table-scroll">
       <table class="map">

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
+<!--
+  P4 - CyberShop (Buổi 15–17): HTML5 semantic + CSS3 Flexbox/Grid + responsive.
+  So với P3: KHÔNG còn inline style trang trí – mọi trình bày nằm ở css/style.css,
+  HTML chỉ mô tả NỘI DUNG và gắn class để CSS chọn.
+  Đọc song song file này với css/style.css (mỗi class đều có giải thích ở đó).
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <!-- viewport: thiếu dòng này thì media query (responsive) không hoạt động đúng trên điện thoại. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="CyberShop - trang bán hàng mẫu: HTML5 semantic, Flexbox, Grid, responsive mobile-first.">
   <title>CyberShop - Mua sắm online giá tốt</title>
@@ -9,10 +16,28 @@
   <!-- CSS external: tách trình bày ra khỏi nội dung -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+<!--
+  Bố cục semantic của trang:
+    <header>  đầu trang (logo, tìm kiếm, menu)
+    <nav>     khối điều hướng chính
+    <main>    nội dung CHÍNH, mỗi trang chỉ có MỘT <main>
+    <section> một phần nội dung có tiêu đề riêng
+    <article> nội dung độc lập (ở đây: mỗi thẻ sản phẩm)
+    <aside>   nội dung phụ bên cạnh (bộ lọc)
+    <footer>  chân trang
+  Vì sao không dùng toàn <div>? Thẻ semantic giúp trình đọc màn hình nhảy nhanh
+  tới từng vùng, giúp SEO, và code dễ đọc hơn. Giao diện thì giống hệt – CSS lo phần đó.
+  ⚠️ Lỗi hay gặp: dùng <section> chỉ để bọc cho dễ style – khi đó hãy dùng <div>.
+-->
 <body>
   <!-- ================= HEADER ================= -->
   <header class="site-header">
     <div class="container">
+      <!--
+        Top bar: hai <ul> nằm hai đầu nhờ Flexbox (justify-content: space-between).
+        Menu là một DANH SÁCH liên kết nên dùng <ul><li><a>.
+        href="#" = liên kết giả (chưa có trang thật) – chỉ dùng khi làm mẫu.
+      -->
       <div class="topbar">
         <ul>
           <li><a href="#">Kênh người bán</a></li>
@@ -27,13 +52,29 @@
         </ul>
       </div>
 
+      <!-- Hàng header chính dùng Flexbox: logo | ô tìm kiếm | giỏ hàng (xem .header-main trong CSS). -->
       <div class="header-main">
         <a class="logo" href="index.html">
+          <!--
+            alt="" (rỗng) là CỐ Ý: chữ "CyberShop" ngay cạnh đã mô tả logo,
+            để alt rỗng giúp trình đọc màn hình không đọc lặp hai lần.
+            ⚠️ Lỗi hay gặp: XÓA hẳn thuộc tính alt – khác hoàn toàn với alt="".
+          -->
           <img src="images/logo.svg" alt="" width="36" height="36">
           <span>CyberShop</span>
         </a>
 
         <!-- Form tìm kiếm: method GET → dữ liệu nằm trên URL (search.html?q=...) -->
+        <!--
+          - action: trang nhận dữ liệu; method="get": dữ liệu gắn lên URL dạng ?q=tai+nghe
+            → hợp với TÌM KIẾM (có thể bookmark/chia sẻ link). Dữ liệu nhạy cảm dùng POST.
+          - role="search": báo cho trình đọc màn hình đây là khung tìm kiếm.
+          - <label for="q"> nối với <input id="q">; class sr-only ẩn chữ khỏi màn hình
+            nhưng trình đọc màn hình vẫn đọc (input luôn cần nhãn, kể cả khi không hiện).
+          - name="q": tên tham số gửi đi. ⚠️ Lỗi hay gặp: thiếu name → giá trị KHÔNG được gửi.
+          - required + minlength="2": trình duyệt tự chặn submit nếu để trống/quá ngắn.
+          - aria-hidden="true" trên emoji: trình đọc màn hình bỏ qua biểu tượng trang trí.
+        -->
         <form class="search-form" action="search.html" method="get" role="search">
           <label for="q" class="sr-only">Tìm sản phẩm</label>
           <input id="q" name="q" type="search" placeholder="Tìm trong CyberShop..." required minlength="2" autocomplete="off">
@@ -41,6 +82,7 @@
         </form>
 
         <div class="header-actions">
+          <!-- aria-label: đặt tên đầy đủ cho liên kết chỉ có biểu tượng (🛒 + số). -->
           <a class="cart" href="#" aria-label="Giỏ hàng: 3 sản phẩm">
             <span aria-hidden="true">🛒</span>
             <span class="cart-count">3</span>
@@ -48,6 +90,10 @@
         </div>
       </div>
 
+      <!--
+        Liên kết tới search.html kèm sẵn query string. Ký tự tiếng Việt trong URL
+        được mã hóa (vd. %C3%A0 = "à"), dấu + là khoảng trắng.
+      -->
       <ul class="search-hints">
         <li><a href="search.html?q=tai+nghe">Tai nghe</a></li>
         <li><a href="search.html?q=b%C3%A0n+ph%C3%ADm">Bàn phím</a></li>
@@ -58,6 +104,10 @@
     </div>
 
     <!-- ================= NAV DANH MỤC ================= -->
+    <!--
+      <nav>: khối điều hướng. aria-label phân biệt khi trang có nhiều <nav>.
+      aria-current="page" đánh dấu mục của trang hiện tại (CSS cũng dùng nó để tô màu).
+    -->
     <nav class="category-nav" aria-label="Danh mục sản phẩm">
       <div class="container">
         <ul>
@@ -78,6 +128,11 @@
   <main class="container">
 
     <!-- Banner + 2 banner phụ -->
+    <!--
+      Hero: CSS Grid 1 cột (mobile) → 2fr 1fr (≥ 768px).
+      Banner trượt bằng @keyframes thuần CSS – xem mục 6 trong style.css.
+      Section không có tiêu đề hiển thị nên dùng aria-label để đặt tên cho nó.
+    -->
     <section class="hero" aria-label="Khuyến mãi nổi bật">
       <div class="banner">
         <div class="banner-track">
@@ -97,6 +152,7 @@
             <a class="btn" href="register.html">Đăng ký</a>
           </div>
         </div>
+        <!-- Các chấm chỉ để trang trí → aria-hidden="true". -->
         <div class="banner-dots" aria-hidden="true"><span></span><span></span><span></span></div>
       </div>
 
@@ -113,6 +169,10 @@
     </section>
 
     <!-- Danh mục nhanh -->
+    <!--
+      aria-labelledby="danh-muc-title": lấy chữ của phần tử có id đó làm tên cho section.
+      Danh mục nhanh: <ul> hiển thị dạng lưới bằng CSS Grid (repeat(4, 1fr) → 10 cột trên desktop).
+    -->
     <section class="section" aria-labelledby="danh-muc-title">
       <div class="section-header">
         <h2 id="danh-muc-title">Danh mục</h2>
@@ -132,9 +192,19 @@
     </section>
 
     <!-- Flash sale: lưới sản phẩm dùng CSS Grid -->
+    <!--
+      Flash Sale: mỗi sản phẩm là một <article> (nội dung độc lập, có thể đứng riêng).
+      <figure> + <figcaption>: hình minh họa kèm chú thích.
+      role="img" + aria-label: biến khối div chứa emoji thành "ảnh" có mô tả
+      (dự án thật sẽ dùng <img src=... alt=...>).
+      <del>: giá cũ bị gạch; span.sr-only "Giá gốc:" giúp trình đọc màn hình đọc rõ nghĩa.
+      style="width: 82%" trên thanh tiến độ là inline style DUY NHẤT được giữ lại vì đó
+      là dữ liệu riêng từng sản phẩm (sau này JavaScript/server sẽ sinh ra).
+    -->
     <section id="flash-sale" class="section" aria-labelledby="flash-sale-title">
       <div class="section-header">
         <h2 id="flash-sale-title">⚡ Flash Sale
+          <!-- role="timer": vùng hiển thị thời gian. -->
           <span class="countdown" role="timer" aria-label="Kết thúc sau 2 giờ 15 phút 30 giây">
             <span>02</span><span>15</span><span>30</span>
           </span>
@@ -224,9 +294,22 @@
     </section>
 
     <!-- Gợi ý hôm nay: bố cục aside (bộ lọc) + lưới sản phẩm -->
+    <!--
+      Bố cục 2 cột: <aside> bộ lọc | <section> sản phẩm.
+      CSS Grid: grid-template-columns: 220px 1fr ở ≥ 992px; mobile ẩn bộ lọc.
+    -->
     <div id="goi-y" class="content-layout">
       <aside class="filters section" aria-labelledby="filter-title">
         <h2 id="filter-title">🔎 Bộ lọc tìm kiếm</h2>
+        <!--
+          Form bộ lọc (GET):
+          - <fieldset> nhóm các ô liên quan, <legend> là tiêu đề của nhóm.
+          - checkbox cùng name="cat": chọn NHIỀU giá trị → URL có ?cat=fashion&cat=books.
+          - radio cùng name="rating": chỉ chọn MỘT trong nhóm.
+            ⚠️ Lỗi hay gặp: đặt name khác nhau cho các radio → chọn được tất cả cùng lúc.
+          - <label> bọc quanh input (cách "ngầm") – không cần for/id.
+          - type="number" + min/step: bàn phím số trên mobile và chặn giá trị âm.
+        -->
         <form action="search.html" method="get">
           <fieldset>
             <legend>Theo danh mục</legend>
@@ -412,6 +495,10 @@
             </a>
           </article>
         </div>
+        <!--
+          Nút "Xem thêm" thực chất là liên kết (<a>) vì nó dẫn sang trang khác;
+          chỉ dùng <button> cho hành động trong trang (submit, mở menu...).
+        -->
         <div class="load-more">
           <a class="btn btn-outline" href="search.html?q=g%E1%BB%A3i+%C3%BD">Xem thêm sản phẩm</a>
         </div>
@@ -420,6 +507,10 @@
   </main>
 
   <!-- ================= FOOTER ================= -->
+  <!--
+    Footer: CSS Grid 2 cột (mobile) → 4 cột (≥ 768px).
+    Mỗi cột là <section> có <h2> riêng; <address> chứa thông tin liên hệ của website.
+  -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">

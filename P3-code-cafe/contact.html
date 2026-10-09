@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+  Trang Liên hệ – trọng tâm: <address>, các loại liên kết đặc biệt
+  (mailto:, tel:, sms:), bảng có rowspan ở cột cuối và danh sách FAQ (dl).
+  Phần head/header/nav giống index.html; xem giải thích chi tiết ở đó.
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -9,11 +14,13 @@
 </head>
 <body style="margin: 0; font-family: Arial, Helvetica, sans-serif; background-color: #fff8f0; color: #3e2723;">
 
+  <!-- Header: id="top" là đích cho các liên kết "Lên đầu trang". -->
   <div id="top" style="background-color: #3e2723; color: #fff3e0; padding: 16px; text-align: center;">
     <img src="images/logo.svg" alt="Logo Code Cafe" width="64" height="64">
     <h1 style="margin: 8px 0;">Liên hệ Code Cafe</h1>
   </div>
 
+  <!-- Thanh điều hướng: mục "Liên hệ" in đậm vì đây là trang hiện tại. -->
   <p style="background-color: #6d4c41; margin: 0; padding: 12px; text-align: center;">
     <a href="index.html" style="color: #ffe0b2;">Trang chủ</a> |
     <a href="menu.html" style="color: #ffe0b2;">Thực đơn</a> |
@@ -23,6 +30,10 @@
   <div style="max-width: 900px; margin: 0 auto; padding: 16px;">
 
     <h2>Địa chỉ</h2>
+    <!--
+      <address> dành cho thông tin liên hệ của CHỦ trang/bài viết, không phải mọi địa chỉ bất kỳ.
+      Mặc định trình duyệt in nghiêng address → font-style: normal để bỏ nghiêng.
+    -->
     <!-- address: thông tin liên hệ của chủ trang -->
     <address style="font-style: normal; line-height: 1.6;">
       <strong>Code Cafe</strong><br>
@@ -33,6 +44,13 @@
     </address>
 
     <h2>Các kênh liên hệ</h2>
+    <!--
+      Bảng các kênh liên hệ: các <a> trong ô dùng 3 "giao thức" khác http:
+      - tel:   gọi điện (trên điện thoại)
+      - sms:   mở ứng dụng nhắn tin
+      - mailto: mở email; nhiều tham số nối bằng & → trong HTML phải viết &amp;
+      rowspan="2" ở cột "Thời gian phản hồi": hai kênh đầu dùng chung một ô.
+    -->
     <table border="1" style="border-collapse: collapse; background-color: #ffffff; width: 100%;">
       <caption style="padding: 8px; font-weight: bold;">Chọn kênh phù hợp với bạn</caption>
       <thead>
@@ -60,6 +78,7 @@
       </tbody>
     </table>
 
+    <!-- <ol>: các bước có thứ tự (chỉ đường). Liên kết ngoài bên dưới dùng target="_blank" + rel="noopener noreferrer". -->
     <h2>Đường đi</h2>
     <ol>
       <li>Từ ngã tư Đường Lập Trình, đi thẳng khoảng 200 m.</li>
@@ -72,6 +91,7 @@
       (liên kết ngoài, mở tab mới).
     </p>
 
+    <!-- FAQ dùng <dl>: <dt> câu hỏi, <dd> câu trả lời. -->
     <h2>Câu hỏi thường gặp</h2>
     <dl>
       <dt><strong>Quán có chỗ cho nhóm 10 người không?</strong></dt>
@@ -83,6 +103,7 @@
     <p><a href="index.html">&larr; Về trang chủ</a> · <a href="#top">&uarr; Lên đầu trang</a></p>
   </div>
 
+  <!-- Chân trang (P4 sẽ dùng thẻ ngữ nghĩa <footer>). -->
   <div style="background-color: #3e2723; color: #ffe0b2; padding: 16px; text-align: center; margin-top: 24px;">
     <p style="margin: 4px;">&copy; 2026 Code Cafe – Bài thực hành HTML cơ bản.</p>
   </div>

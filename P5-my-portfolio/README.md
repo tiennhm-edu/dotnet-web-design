@@ -7,6 +7,12 @@ Portfolio cá nhân responsive của một .NET developer giả định – **Ng
 - `css/style.css`: chỉ những gì Bootstrap không có sẵn (hero, timeline, hiệu ứng) + đổi màu primary qua biến `--bs-*`.
 - `js/main.js`: dark mode, smooth scroll, back-to-top, modal động, validation form.
 
+## Đọc code ở đâu trước
+
+1. `index.html` – comment trước mỗi section giải thích lưới `row`/`col-*`, utility class và thuộc tính `data-bs-*` bật component (navbar, carousel, tabs, modal).
+2. `css/style.css` – cách ghi đè biến `--bs-*` và phần CSS tự viết (timeline, back-to-top).
+3. `js/main.js` – đọc từ khối `DOMContentLoaded` rồi lần lượt 5 tính năng: dark mode (`localStorage` + try/catch), smooth scroll, back-to-top, modal đọc `data-*`, validation form.
+
 ## Mục tiêu
 
 - Hiểu hệ thống **grid 12 cột** và 6 breakpoint: `xs` (<576), `sm` ≥576, `md` ≥768, `lg` ≥992, `xl` ≥1200, `xxl` ≥1400.

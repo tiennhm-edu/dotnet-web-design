@@ -1,26 +1,65 @@
 <!DOCTYPE html>
+<!--
+  <!DOCTYPE html> PHẢI là dòng đầu tiên: báo cho trình duyệt dùng chuẩn HTML5.
+  ⚠️ Lỗi hay gặp: đặt comment hay khoảng trắng lạ TRƯỚC DOCTYPE → trình duyệt
+  có thể rơi vào "quirks mode" và hiển thị khác đi.
+  lang="vi": khai báo ngôn ngữ để trình đọc màn hình phát âm đúng và Google hiểu nội dung.
+-->
 <html lang="vi">
+<!-- <head>: thông tin VỀ trang (không hiển thị trong vùng nội dung). -->
 <head>
+  <!-- charset UTF-8: hiển thị đúng tiếng Việt có dấu. Đặt sớm nhất trong head. -->
   <meta charset="UTF-8">
+  <!-- viewport: bắt buộc để trang hiển thị đúng tỉ lệ trên điện thoại. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- description: đoạn mô tả ngắn hiện dưới tiêu đề trong kết quả tìm kiếm (SEO). -->
   <meta name="description" content="Code Cafe - quán cà phê dành cho dân lập trình. Bài thực hành HTML cơ bản.">
+  <!-- title: chữ hiện trên tab trình duyệt và khi lưu bookmark. -->
   <title>Code Cafe - Trang chủ</title>
+  <!-- favicon: biểu tượng nhỏ trên tab; type cho biết đây là ảnh SVG. -->
   <link rel="icon" href="images/logo.svg" type="image/svg+xml">
 </head>
 <!--
   P3 - Code Cafe (Buổi 14 - Bài 3.1 HTML)
   Quy ước bài này: CHỈ dùng HTML thuần + inline style (chưa học CSS external).
+
+  Vì sao dùng inline style (thuộc tính style="...") ở đây?
+  - Buổi này tập trung vào THẺ HTML; inline style chỉ giúp trang bớt "trơn".
+  - Nhược điểm: lặp lại rất nhiều (xem các thẻ <a> ở thanh điều hướng), khó sửa
+    đồng loạt, trộn nội dung với trình bày, độ ưu tiên (specificity) cao nhất.
+  - Sang P4 (Layout Shop) ta chuyển toàn bộ sang file CSS riêng (css/style.css)
+    → sửa 1 chỗ, đổi cả website.
+
+  Bài này dùng <div>/<p> cho header, nav, footer để làm quen trước;
+  P4 sẽ thay bằng thẻ ngữ nghĩa <header>, <nav>, <main>, <footer>.
 -->
+<!-- <body>: mọi thứ người dùng NHÌN THẤY đều nằm trong body. -->
 <body style="margin: 0; font-family: Arial, Helvetica, sans-serif; background-color: #fff8f0; color: #3e2723;">
 
   <!-- ===== PHẦN ĐẦU TRANG ===== -->
+  <!--
+    id="top": đặt "mốc" để liên kết href="#top" nhảy về đây.
+    id phải DUY NHẤT trong một trang.
+  -->
   <div id="top" style="background-color: #3e2723; color: #fff3e0; padding: 16px; text-align: center;">
+    <!--
+      <img> là thẻ rỗng (void) – không có thẻ đóng.
+      alt: chữ thay thế khi ảnh lỗi + cho người khiếm thị (trình đọc màn hình đọc alt).
+      width/height: giữ chỗ trước cho ảnh → trang không bị "giật" khi ảnh tải xong.
+    -->
     <img src="images/logo.svg" alt="Logo Code Cafe" width="80" height="80">
+    <!-- <h1>: tiêu đề chính của trang, mỗi trang chỉ nên có MỘT h1. -->
     <h1 style="margin: 8px 0;">Code Cafe</h1>
     <p style="margin: 0; font-style: italic;">Code ngon – Cà phê thơm – Bug tự bay</p>
   </div>
 
   <!-- ===== THANH ĐIỀU HƯỚNG (liên kết nội bộ giữa các trang) ===== -->
+  <!--
+    <a href="...">: liên kết.
+    - href="menu.html": đường dẫn TƯƠNG ĐỐI (cùng thư mục) → vẫn chạy khi đổi tên miền.
+    - href="#gio-mo-cua": nhảy tới phần tử có id="gio-mo-cua" trong CÙNG trang.
+    Trang hiện tại được in đậm (font-weight: bold) để người dùng biết mình đang ở đâu.
+  -->
   <p style="background-color: #6d4c41; margin: 0; padding: 12px; text-align: center;">
     <a href="index.html" style="color: #ffe0b2; font-weight: bold;">Trang chủ</a> |
     <a href="menu.html" style="color: #ffe0b2;">Thực đơn</a> |
@@ -28,11 +67,26 @@
     <a href="#gio-mo-cua" style="color: #ffe0b2;">Giờ mở cửa</a>
   </p>
 
+  <!--
+    Khung nội dung chính: max-width giới hạn độ rộng cho dễ đọc,
+    margin: 0 auto → căn giữa khối theo chiều ngang.
+  -->
   <div style="max-width: 900px; margin: 0 auto; padding: 16px;">
 
+    <!--
+      Ảnh banner: alt MÔ TẢ nội dung ảnh (không viết "ảnh 1", "banner").
+      width/height là kích thước gốc; style width:100% + height:auto giúp ảnh
+      co giãn theo màn hình mà không méo.
+    -->
     <img src="images/cafe-banner.svg" alt="Không gian quán Code Cafe với đèn vàng và bàn gỗ" width="800" height="300" style="width: 100%; height: auto; border-radius: 8px;">
 
     <!-- ===== GIỚI THIỆU: heading + đoạn văn + định dạng chữ ===== -->
+    <!--
+      <strong> = quan trọng (in đậm), <em> = nhấn mạnh (in nghiêng),
+      <mark> = tô sáng, <q> = trích dẫn ngắn trong dòng (tự thêm dấu ngoặc kép),
+      <blockquote> = trích dẫn dài thành một khối riêng.
+      Chọn thẻ theo Ý NGHĨA, không phải theo kiểu chữ muốn có.
+    -->
     <h2>Chào mừng bạn đến với Code Cafe</h2>
     <p>
       <strong>Code Cafe</strong> là góc nhỏ dành cho <em>dân lập trình</em>, sinh viên và
@@ -53,6 +107,12 @@
     <hr>
 
     <!-- ===== DANH SÁCH KHÔNG THỨ TỰ (ul) ===== -->
+    <!--
+      <ul> chỉ được chứa trực tiếp <li>.
+      Danh sách lồng nhau: đặt <ul> MỚI bên trong một <li>.
+      ⚠️ Lỗi hay gặp: đặt <ul> con ngay dưới <ul> cha (ngoài <li>) → HTML sai cấu trúc.
+      <code>: hiển thị đoạn mã bằng font đơn cách (monospace).
+    -->
     <h2>Vì sao dân IT thích Code Cafe?</h2>
     <ul>
       <li>Wifi 300 Mbps, mật khẩu là <code>HelloWorld2026</code></li>
@@ -74,6 +134,10 @@
       <li>Nhận số bàn, ngồi code – nhân viên sẽ mang đồ uống tới.</li>
     </ol>
 
+    <!--
+      Thuộc tính của <ol>: type="a" (a, b, c…; còn có "A", "i", "I", "1"),
+      start="3" bắt đầu đánh số từ mục thứ 3 (tức "c").
+    -->
     <h3>Thứ tự ưu tiên khi debug (ol kiểu chữ cái, bắt đầu từ c)</h3>
     <ol type="a" start="3">
       <li>Đọc kỹ thông báo lỗi</li>
@@ -82,6 +146,7 @@
     </ol>
 
     <!-- ===== DANH SÁCH ĐỊNH NGHĨA (dl) ===== -->
+    <!-- <dl> gồm các cặp <dt> (thuật ngữ) + <dd> (giải thích) – hợp cho từ điển, FAQ. -->
     <h2>Từ điển cà phê cho người mới</h2>
     <dl>
       <dt><strong>Espresso</strong></dt>
@@ -95,6 +160,11 @@
     <hr>
 
     <!-- ===== BLOCK vs INLINE ===== -->
+    <!--
+      Block: luôn bắt đầu dòng mới và rộng hết khung cha.
+      Inline: nằm chung dòng với chữ, chỉ rộng bằng nội dung.
+      ⚠️ Lỗi hay gặp: đặt thẻ block (div, p) bên trong thẻ inline hoặc trong <p>.
+    -->
     <h2>Góc học tập: Block và Inline</h2>
     <p>Phần tử <strong>block</strong> (như <code>div</code>, <code>p</code>, <code>h1</code>) chiếm hết chiều ngang và xuống dòng mới:</p>
     <div style="background-color: #ffe0b2; border: 1px dashed #6d4c41; padding: 4px; margin-bottom: 4px;">div số 1 (block)</div>
@@ -107,6 +177,11 @@
     </p>
 
     <!-- ===== Ký tự đặc biệt (HTML entities) ===== -->
+    <!--
+      Muốn hiện dấu < > & lên trang phải viết &lt; &gt; &amp;
+      (nếu không trình duyệt tưởng là thẻ HTML).
+      &nbsp; = khoảng trắng không ngắt dòng (giữ các chữ dính nhau trên một dòng).
+    -->
     <p>
       Ký tự đặc biệt: <code>&lt;h1&gt;</code> là thẻ tiêu đề lớn nhất &amp; giá tính bằng &#8363; (đồng).
       &copy; bản quyền, &rarr; mũi tên, khoảng&nbsp;trắng&nbsp;không&nbsp;ngắt.
@@ -115,6 +190,11 @@
     <hr>
 
     <!-- ===== GIỜ MỞ CỬA (đích của liên kết #gio-mo-cua) ===== -->
+    <!--
+      <br> xuống dòng TRONG một đoạn (địa chỉ, giờ giấc).
+      ⚠️ Lỗi hay gặp: dùng nhiều <br><br> để tạo khoảng cách – hãy dùng margin (CSS).
+      <b>/<i> chỉ đổi kiểu chữ, KHÔNG mang nghĩa nhấn mạnh như <strong>/<em>.
+    -->
     <h2 id="gio-mo-cua">Giờ mở cửa</h2>
     <p>
       Thứ Hai – Thứ Sáu: <b>7:00 – 22:00</b><br>
@@ -131,6 +211,13 @@
     <p><small>Mỗi trang chỉ nên có <strong>một</strong> thẻ h1. Không nhảy cóc cấp heading chỉ để lấy cỡ chữ.</small></p>
 
     <!-- ===== Liên kết ngoài: mở tab mới ===== -->
+    <!--
+      target="_blank": mở liên kết ở tab mới.
+      rel="noopener noreferrer": trang mới KHÔNG truy cập được window.opener của trang
+      mình (chống tấn công "tabnabbing") và không gửi thông tin trang nguồn (Referer).
+      ⚠️ Lỗi hay gặp: dùng target="_blank" mà quên rel.
+      Nên ghi rõ "(mở tab mới)" để người dùng không bất ngờ.
+    -->
     <h2>Tài liệu tham khảo</h2>
     <ul>
       <li><a href="https://developer.mozilla.org/vi/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN – Tài liệu HTML (mở tab mới)</a></li>
@@ -139,6 +226,11 @@
   </div>
 
   <!-- ===== CHÂN TRANG ===== -->
+  <!--
+    mailto: mở ứng dụng email; ?subject=... điền sẵn tiêu đề
+    (ký tự tiếng Việt/khoảng trắng phải mã hóa URL, vd. %20 = khoảng trắng).
+    tel: trên điện thoại sẽ gọi ngay số này.
+  -->
   <div style="background-color: #3e2723; color: #ffe0b2; padding: 16px; text-align: center; margin-top: 24px;">
     <p style="margin: 4px;">&copy; 2026 Code Cafe – Bài thực hành HTML cơ bản.</p>
     <p style="margin: 4px;">

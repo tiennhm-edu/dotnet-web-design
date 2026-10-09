@@ -5,11 +5,20 @@
    Ghi đè biến Bootstrap bằng CSS variables --bs-*.
    ========================================================= */
 
+/* Biến CSS riêng của dự án (không đụng tới biến của Bootstrap). */
 :root {
   --nav-height: 64px;
   --brand-gradient: linear-gradient(135deg, #512bd4 0%, #0d6efd 100%);
 }
 
+/*
+  GHI ĐÈ BOOTSTRAP bằng biến CSS: Bootstrap 5.3 đọc màu từ các biến --bs-*,
+  nên chỉ cần khai báo lại biến là mọi class .text-primary, .bg-primary, link... đổi màu.
+  Selector thuộc tính [data-bs-theme="dark"] khớp với thuộc tính trên thẻ <html>
+  → JS đổi thuộc tính là bộ biến tương ứng được áp dụng ngay.
+  File này nạp SAU bootstrap.min.css: cùng độ ưu tiên thì rule viết sau thắng.
+  ⚠️ Lỗi hay gặp: đặt <link> style.css TRƯỚC Bootstrap → CSS tự viết bị ghi đè hết.
+*/
 /* Đổi màu primary của Bootstrap sang tím .NET (cả light & dark) */
 [data-bs-theme="light"],
 [data-bs-theme="dark"] {
@@ -31,6 +40,10 @@
   --bs-link-hover-color-rgb: 196, 181, 253;
 }
 
+/*
+  Mỗi component (nút, pills...) có bộ biến riêng như --bs-btn-bg. Đổi biến tại đây
+  thay vì viết lại background/border cho từng trạng thái :hover/:active.
+*/
 /* Component dùng biến riêng nên cần chỉnh thêm */
 .btn-primary {
   --bs-btn-bg: #512bd4;
@@ -66,6 +79,12 @@
   background-color: #512bd4;
 }
 
+/*
+  Navbar fixed-top bị "rút" khỏi luồng tài liệu nên sẽ che phần đầu trang:
+  - body padding-top bằng chiều cao navbar để nội dung không bị che.
+  - scroll-margin-top: khi nhảy tới #about, chừa khoảng trống phía trên section.
+  section[id] = selector thuộc tính: mọi <section> CÓ thuộc tính id.
+*/
 /* Khi cuộn tới #id, chừa chỗ cho navbar fixed-top */
 section[id] {
   scroll-margin-top: var(--nav-height);
@@ -76,6 +95,7 @@ body {
 }
 
 /* ---------- Navbar ---------- */
+/* Logo chữ "NA": inline-grid + place-items: center để căn giữa chữ trong ô vuông. */
 .brand-mark {
   display: inline-grid;
   place-items: center;
@@ -87,6 +107,7 @@ body {
   font-size: 14px;
 }
 
+/* .active do Scrollspy của Bootstrap tự thêm vào mục menu của section đang xem. */
 .navbar .nav-link.active {
   color: var(--bs-primary);
   font-weight: 600;
@@ -97,6 +118,10 @@ body {
 }
 
 /* ---------- Hero / Carousel ---------- */
+/*
+  Chiều cao slide = toàn màn hình trừ navbar: calc() kết hợp đơn vị khác nhau
+  (100vh = 100% chiều cao khung nhìn) với biến CSS. min/max-height giữ tỉ lệ hợp lý.
+*/
 .hero-slide {
   height: calc(100vh - var(--nav-height));
   min-height: 460px;
@@ -107,6 +132,7 @@ body {
   background: var(--brand-gradient);
 }
 
+/* Nhiều lớp nền chồng nhau, cách nhau bằng dấu phẩy: lớp viết TRƯỚC nằm TRÊN. */
 .hero-slide-2 {
   background:
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0, transparent 40%),
@@ -119,6 +145,10 @@ body {
     linear-gradient(135deg, #be185d 0%, #7c3aed 100%);
 }
 
+/*
+  Animation nhẹ "lơ lửng": ease-in-out (chậm–nhanh–chậm), infinite = lặp mãi.
+  Keyframe 0% và 100% giống nhau để vòng lặp liền mạch, không bị giật.
+*/
 .hero-avatar {
   border: 6px solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
@@ -137,10 +167,15 @@ body {
 }
 
 /* ---------- Section chung ---------- */
+/* Class tự đặt tên, dùng lại cho mọi section (giống utility của Bootstrap). */
 .section-padding {
   padding: 80px 0;
 }
 
+/*
+  Gạch chân trang trí dưới tiêu đề: ::after (position: absolute) bám theo
+  tiêu đề (position: relative). Pseudo-element cần content: "" mới hiển thị.
+*/
 .section-title {
   position: relative;
   display: inline-block;
@@ -160,11 +195,16 @@ body {
   background: var(--brand-gradient);
 }
 
+/* Tiêu đề căn giữa thì gạch chân cũng căn giữa: left: 50% + translateX(-50%). */
 .text-center .section-title::after {
   left: 50%;
   transform: translateX(-50%);
 }
 
+/*
+  Selector anh em kề (+): chỉ thêm margin-top từ thanh kỹ năng THỨ HAI trở đi
+  → không thừa khoảng trống ở đầu danh sách.
+*/
 .skill + .skill {
   margin-top: 1rem;
 }
@@ -175,6 +215,10 @@ body {
 }
 
 /* ---------- Project cards ---------- */
+/*
+  Hover nổi lên: transition khai báo ở trạng thái thường, transform ở :hover.
+  !important cần thiết vì class shadow-sm của Bootstrap cũng dùng !important.
+*/
 .project-card {
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -197,6 +241,7 @@ body {
   transition: transform 0.3s ease;
 }
 
+/* Rê chuột lên CARD (cha) thì icon (con) phóng to + xoay: transform nhận nhiều hàm cùng lúc. */
 .project-card:hover .project-thumb i {
   transform: scale(1.15) rotate(-6deg);
 }
@@ -209,6 +254,7 @@ body {
 .thumb-6 { background: linear-gradient(135deg, #8d6e63, #3e2723); }
 
 /* ---------- Features ---------- */
+/* Thẻ dịch vụ: đổi màu viền + nổi lên khi hover. */
 .feature {
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
@@ -230,6 +276,12 @@ body {
 }
 
 /* ---------- Timeline ---------- */
+/*
+  TIMELINE thuần CSS:
+  - .timeline (relative) + ::before (absolute) vẽ đường kẻ dọc bên trái.
+  - Mỗi .timeline-item::before vẽ chấm tròn, left âm để lùi ra trùng đường kẻ.
+  Không cần thêm thẻ HTML nào chỉ để trang trí.
+*/
 .timeline {
   list-style: none;
   margin: 0;
@@ -268,6 +320,10 @@ body {
   border: 3px solid var(--bs-primary);
 }
 
+/*
+  rgba(var(--bs-primary-rgb), 0.1): dùng biến dạng "r, g, b" để tạo màu primary
+  trong suốt 10% – lý do Bootstrap cung cấp thêm các biến *-rgb.
+*/
 .timeline-date {
   display: inline-block;
   margin-bottom: 0.25rem;
@@ -289,6 +345,7 @@ body {
 }
 
 /* ---------- Awards ---------- */
+/* flex: 0 0 44px: icon không co giãn trong hàng d-flex của card giải thưởng. */
 .award-icon {
   display: inline-grid;
   place-items: center;
@@ -299,6 +356,13 @@ body {
 }
 
 /* ---------- Back to top ---------- */
+/*
+  Nút lên đầu trang: position: fixed bám theo CỬA SỔ (không theo trang) nên luôn ở góc.
+  z-index: 1030 = ngang navbar fixed của Bootstrap (modal 1055 vẫn nằm trên).
+  Ẩn bằng opacity + visibility (thay vì display: none) để transition được;
+  visibility: hidden còn giúp nút ẩn không bị bấm nhầm hay nhận focus.
+  JS thêm/bỏ class .show khi cuộn.
+*/
 .back-to-top {
   position: fixed;
   right: 1.25rem;
@@ -318,6 +382,11 @@ body {
   transform: translateY(0);
 }
 
+/*
+  Bootstrap đã responsive sẵn; ở đây chỉ tinh chỉnh thêm.
+  max-width: 575.98px = "nhỏ hơn sm" (cách Bootstrap viết để tránh trùng mốc 576px).
+  Đây là kiểu desktop-first (max-width) dùng cho ngoại lệ nhỏ; phần lớn vẫn mobile-first.
+*/
 /* ---------- Responsive tinh chỉnh ---------- */
 @media (max-width: 575.98px) {
   .section-padding {
@@ -329,6 +398,10 @@ body {
   }
 }
 
+/*
+  Tắt animation lơ lửng cho người dùng đã bật "giảm chuyển động" trong hệ điều hành.
+  (Bootstrap cũng tự tắt transition của các component trong trường hợp này.)
+*/
 @media (prefers-reduced-motion: reduce) {
   .hero-avatar {
     animation: none;

@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  Góc học tập CSS – trang thí nghiệm selector & specificity (độ ưu tiên).
+  CSS tương ứng: mục 13 cuối file css/style.css.
+  Cách học: mở DevTools (F12) → chọn từng đoạn <p> → khung Styles cho thấy
+  rule nào THẮNG và rule nào bị gạch ngang (THUA).
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -75,6 +81,11 @@
 
   <!-- ================= MAIN ================= -->
   <main class="container">
+    <!--
+      id="specificity-demo" và class="demo" là "móc" để CSS chọn.
+      Một phần tử có thể có NHIỀU class (cách nhau bằng khoảng trắng) nhưng chỉ MỘT id.
+      Bốn đoạn <p> dưới đây cùng bị nhiều rule tô màu; màu cuối cùng do specificity quyết định.
+    -->
     <section id="specificity-demo" class="section demo" aria-labelledby="lab-title">
       <h1 id="lab-title">Góc học tập: Selector &amp; Specificity</h1>
       <p>Đoạn này màu <strong>xanh dương</strong> vì rule <code>.demo p</code> có độ ưu tiên (0,1,1).</p>
@@ -82,6 +93,10 @@
       <p class="highlight id-wins">Đoạn này màu <strong>xanh lá</strong>: <code>#specificity-demo .id-wins</code> (1,1,0) – có id nên thắng.</p>
       <p class="highlight id-wins inline-demo">Đoạn này màu <strong>đỏ</strong>: mở DevTools và xem rule <code>.inline-demo</code> dùng <code>!important</code> – thắng tất cả (kể cả id). Hạn chế dùng!</p>
 
+      <!--
+        Danh sách để thử :first-child, :nth-child(even), :last-child::before.
+        Comment HTML không phải phần tử nên không làm lệch cách đếm nth-child.
+      -->
       <h2>Selector quan hệ &amp; pseudo-class</h2>
       <ul>
         <li><code>.demo &gt; ul &gt; li:first-child</code> → mục đầu in đậm</li>
@@ -90,11 +105,13 @@
         <li><code>li:last-child::before</code> → thêm mũi tên trước mục cuối</li>
       </ul>
 
+      <!-- Selector anh em ~ : mọi <p> đứng SAU <h3> và cùng cha. -->
       <h3>Selector anh em</h3>
       <p><code>.demo h3 ~ p</code> chọn mọi <code>p</code> đứng sau <code>h3</code> (cùng cha) – đoạn này thụt vào.</p>
       <p>Đoạn này cũng thụt vào.</p>
 
       <h2>Bảng tính nhanh</h2>
+      <!-- Bảng bọc trong .table-wrap (overflow-x: auto) để cuộn ngang trên màn hình hẹp. -->
       <div class="table-wrap">
         <table class="spec-table">
           <thead>

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+  Trang Kết quả tìm kiếm – đích của mọi form GET trong P4 (action="search.html").
+  Header/nav/footer giống index.html (đã giải thích ở đó).
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -75,6 +79,10 @@
 
   <!-- ================= MAIN ================= -->
   <main class="container">
+    <!--
+      Trang này có <h1> riêng (tiêu đề kết quả). <span id="keyword"> là chỗ trống
+      để đoạn JavaScript cuối trang điền từ khóa vào.
+    -->
     <section class="section" aria-labelledby="result-title">
       <div class="section-header">
         <h1 id="result-title" class="page-title">Kết quả tìm kiếm cho “<span id="keyword">…</span>”</h1>
@@ -89,6 +97,11 @@
           bạn sẽ đọc tham số <code>q</code> phía server và truy vấn cơ sở dữ liệu thật.</p>
       </div>
 
+      <!--
+        Form GET thứ hai trên cùng trang: id phải KHÁC (q2) nhưng name vẫn là "q"
+        → server nhận cùng tham số ?q=. id dùng trong trang (label for), name dùng khi GỬI đi.
+        <select name="sort"> thêm tham số &sort=... vào URL.
+      -->
       <form class="search-form result-sort" action="search.html" method="get">
         <label for="q2" class="sr-only">Từ khóa</label>
         <input id="q2" name="q" type="search" placeholder="Nhập từ khóa khác..." required minlength="2">
@@ -102,6 +115,10 @@
         <button class="btn btn-primary" type="submit">Tìm</button>
       </form>
 
+      <!--
+        Kết quả là dữ liệu mẫu tĩnh, dùng lại đúng các class thẻ sản phẩm ở index.html
+        → lợi ích của CSS dùng chung: không viết thêm dòng CSS nào.
+      -->
       <div class="product-grid">
         <article class="product-card">
           <span class="badge">50%<small>Giảm</small></span>
@@ -276,6 +293,14 @@
     </section>
   </main>
 
+  <!--
+    <script> nội tuyến (xem trước P5):
+    - window.location.search  = phần "?q=tai+nghe" của URL
+    - URLSearchParams(...).get('q') đọc giá trị tham số q (tự giải mã %C3%A0, dấu +)
+    - textContent gán CHỮ thuần → an toàn, không chạy được HTML lạ người dùng nhập vào.
+    ⚠️ Lỗi hay gặp: dùng innerHTML để hiện dữ liệu từ URL → lỗ hổng XSS.
+    Đặt script cuối body để các phần tử phía trên đã tồn tại khi script chạy.
+  -->
   <script>
     // Xem trước JavaScript (sẽ học kỹ ở P5): đọc tham số ?q= trên URL và hiển thị.
     const keyword = new URLSearchParams(window.location.search).get('q');

@@ -5,6 +5,14 @@ Website giới thiệu quán cà phê **Code Cafe** gồm 3 trang, viết bằng
 > **Quy ước bài này**: chưa học CSS nên chỉ dùng thuộc tính HTML (`width`, `height`, `border`, `colspan`, `rowspan`…)
 > và **inline style** (`style="..."`) cho màu sắc cơ bản. Sang P4 ta sẽ tách toàn bộ ra file CSS và giải thích vì sao inline style khó bảo trì.
 
+## Đọc code ở đâu trước
+
+1. `index.html` – đọc từ trên xuống; mỗi khối có comment `<!-- … -->` giải thích thẻ/thuộc tính đang học (DOCTYPE, head, heading, danh sách, liên kết, entity, `alt`, `target="_blank"` + `rel`).
+2. `menu.html` – bảng: `caption`, `thead/tbody/tfoot`, `scope`, `colspan`/`rowspan`.
+3. `contact.html` – `address`, liên kết `mailto:`/`tel:`/`sms:`, `dl`.
+
+> Bài này cố ý dùng inline style; comment đầu `index.html` giải thích vì sao và vì sao P4 chuyển sang file CSS riêng.
+
 ## Mục tiêu
 
 Sau buổi học, học viên có thể:

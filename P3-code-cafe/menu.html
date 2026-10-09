@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+  Trang Thực đơn – trọng tâm: BẢNG (table) và ẢNH (img).
+  Phần head/header/nav giống index.html; xem giải thích chi tiết ở đó.
+  Inline style lặp lại ở mọi trang chính là lý do P4 chuyển sang file CSS riêng.
+-->
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -9,11 +14,13 @@
 </head>
 <body style="margin: 0; font-family: Arial, Helvetica, sans-serif; background-color: #fff8f0; color: #3e2723;">
 
+  <!-- Header: id="top" là đích cho các liên kết "Lên đầu trang". -->
   <div id="top" style="background-color: #3e2723; color: #fff3e0; padding: 16px; text-align: center;">
     <img src="images/logo.svg" alt="Logo Code Cafe" width="64" height="64">
     <h1 style="margin: 8px 0;">Thực đơn Code Cafe</h1>
   </div>
 
+  <!-- Thanh điều hướng: mục "Thực đơn" in đậm vì đây là trang hiện tại. -->
   <p style="background-color: #6d4c41; margin: 0; padding: 12px; text-align: center;">
     <a href="index.html" style="color: #ffe0b2;">Trang chủ</a> |
     <a href="menu.html" style="color: #ffe0b2; font-weight: bold;">Thực đơn</a> |
@@ -32,6 +39,17 @@
 
     <!-- ===== BẢNG GIÁ: caption, thead, tbody, tfoot, rowspan ===== -->
     <h2 id="bang-gia">Bảng giá đồ uống</h2>
+    <!--
+      Cấu trúc bảng chuẩn:
+        <caption> tiêu đề bảng (trình đọc màn hình đọc đầu tiên)
+        <thead> hàng tiêu đề · <tbody> dữ liệu · <tfoot> ghi chú/tổng kết
+        <tr> = một hàng, <th> = ô tiêu đề, <td> = ô dữ liệu.
+      scope="col" / scope="row": cho biết <th> là tiêu đề của CỘT hay của HÀNG
+        → trình đọc màn hình đọc "Size M, Cà phê đen đá, 25" thay vì chỉ "25".
+      border="1" là cách cũ để kẻ viền; P4 sẽ làm bằng CSS.
+      border-collapse: collapse gộp viền đôi giữa các ô thành viền đơn.
+      ⚠️ Lỗi hay gặp: dùng <table> để dàn layout trang – bảng chỉ dành cho DỮ LIỆU dạng bảng.
+    -->
     <table border="1" style="width: 100%; border-collapse: collapse; background-color: #ffffff;">
       <caption style="padding: 8px; font-weight: bold;">Giá đã bao gồm VAT – đơn vị: nghìn đồng</caption>
       <thead>
@@ -44,6 +62,10 @@
       </thead>
       <tbody>
         <tr>
+          <!--
+            rowspan="3": ô này kéo dài xuống 3 hàng → 2 hàng tiếp theo chỉ còn 3 ô <td>.
+            ⚠️ Lỗi hay gặp: vẫn viết đủ 4 ô ở các hàng bên dưới → bảng bị lệch cột.
+          -->
           <th scope="row" rowspan="3" style="background-color: #ffe0b2; padding: 8px;">Cà phê</th>
           <td style="padding: 8px;">Cà phê đen đá</td>
           <td style="padding: 8px; text-align: right;">25</td>
@@ -88,6 +110,12 @@
 
     <!-- ===== BẢNG COMBO: colspan ở header ===== -->
     <h2 id="combo">Combo “Deadline”</h2>
+    <!--
+      Bảng combo: header 2 tầng.
+      - Ô "Bao gồm" dùng colspan="2" (rộng 2 cột) và scope="colgroup" (tiêu đề cho NHÓM cột).
+      - Ô "Combo" và "Giá" dùng rowspan="2" để cao bằng cả 2 hàng tiêu đề.
+      Mẹo: vẽ bảng ra giấy, đếm số ô mỗi hàng trước khi viết code.
+    -->
     <table border="1" style="width: 100%; border-collapse: collapse; background-color: #ffffff;">
       <caption style="padding: 8px; font-weight: bold;">Combo tiết kiệm cho buổi code dài</caption>
       <thead>
@@ -125,6 +153,10 @@
 
     <!-- ===== ẢNH MÓN NỔI BẬT: img với alt, width, height, title ===== -->
     <h2 id="mon-noi-bat">Món nổi bật</h2>
+    <!--
+      alt vs title: alt thay thế ảnh (bắt buộc, cho người khiếm thị/ảnh lỗi);
+      title chỉ là chú thích hiện khi rê chuột (tùy chọn, không thay được alt).
+    -->
     <p>Các ảnh dưới đây là phần tử <strong>inline</strong> nên nằm cạnh nhau trên cùng một dòng (nếu đủ chỗ):</p>
     <p>
       <img src="images/ca-phe-den.svg" alt="Cà phê đen đá" title="Cà phê đen đá" width="200" height="150">
@@ -136,6 +168,7 @@
     <p><a href="#top">&uarr; Lên đầu trang</a> · <a href="contact.html">Đặt bàn ngay &rarr;</a></p>
   </div>
 
+  <!-- Chân trang (P4 sẽ dùng thẻ ngữ nghĩa <footer>). -->
   <div style="background-color: #3e2723; color: #ffe0b2; padding: 16px; text-align: center; margin-top: 24px;">
     <p style="margin: 4px;">&copy; 2026 Code Cafe – Bài thực hành HTML cơ bản.</p>
   </div>

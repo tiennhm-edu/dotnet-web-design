@@ -4,6 +4,13 @@
    Chiến lược: MOBILE-FIRST
      - CSS mặc định viết cho màn hình nhỏ.
      - @media (min-width: ...) bổ sung cho màn hình lớn hơn.
+   Cách đọc file này (dành cho người mới):
+     - Một "rule" = selector { thuộc_tính: giá_trị; }
+     - File được nạp từ HTML bằng <link rel="stylesheet" href="css/style.css">
+       → MỌI trang dùng chung một file; sửa 1 chỗ, đổi cả website
+       (khác với inline style ở P3 phải sửa từng thẻ).
+     - Cùng độ ưu tiên thì rule viết SAU thắng (đó là chữ "Cascade" trong CSS).
+     - Mở DevTools (F12) → Elements → khung Styles để xem rule nào đang áp dụng.
    Mục lục:
      1. CSS variables (custom properties)
      2. Reset & base
@@ -21,6 +28,14 @@
    ========================================================= */
 
 /* ---------- 1. CSS VARIABLES ---------- */
+/*
+  CSS VARIABLES (custom properties)
+  - Khai báo trong :root (= thẻ <html>) → dùng được ở mọi nơi.
+  - Tên bắt đầu bằng hai dấu gạch ngang, dùng bằng var(--ten-bien).
+  - Lợi ích: đổi màu chủ đạo/khoảng cách cho cả site chỉ ở MỘT chỗ.
+  ⚠️ Lỗi hay gặp: viết var(color-primary) thiếu "--", hoặc gõ sai tên biến
+     → trình duyệt bỏ qua thuộc tính đó mà KHÔNG báo lỗi.
+*/
 :root {
   --color-primary: #ff5722;
   --color-primary-dark: #e64a19;
@@ -34,11 +49,13 @@
   --color-success: #2e7d32;
   --color-danger: #d32f2f;
 
+  /* Bo góc và đổ bóng dùng chung */
   --radius-sm: 4px;
   --radius-md: 8px;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.12);
 
+  /* Thang khoảng cách (bội số của 4px) giúp giao diện đều đặn */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -51,12 +68,23 @@
 }
 
 /* ---------- 2. RESET & BASE ---------- */
+/*
+  BOX MODEL: mỗi phần tử là một hộp gồm content → padding → border → margin.
+  Mặc định (content-box) width CHỈ tính phần content, nên thêm padding/border
+  làm hộp to ra. border-box: width đã bao gồm padding + border → dễ tính layout.
+  *, *::before, *::after = selector toàn cục, áp cho mọi phần tử và pseudo-element.
+  ⚠️ Lỗi hay gặp: quên dòng này → đặt width: 50% + padding là bị tràn dòng.
+*/
 *,
 *::before,
 *::after {
   box-sizing: border-box; /* width bao gồm padding + border */
 }
 
+/*
+  Thuộc tính chữ (font, color, line-height) được KẾ THỪA (inherit) xuống phần tử con
+  → khai báo một lần ở body cho cả trang.
+*/
 body {
   margin: 0;
   font-family: var(--font-base);
@@ -66,12 +94,20 @@ body {
   background-color: var(--color-bg);
 }
 
+/*
+  Ảnh co theo khung cha (không tràn trên mobile); display: block bỏ khoảng hở
+  nhỏ phía dưới ảnh inline.
+*/
 img,
 svg {
   max-width: 100%;
   display: block;
 }
 
+/*
+  Liên kết: lấy màu của phần tử cha, bỏ gạch chân; chỉ gạch chân khi :hover.
+  :hover là PSEUDO-CLASS – trạng thái của phần tử (rê chuột, focus, checked...).
+*/
 a {
   color: inherit;
   text-decoration: none;
@@ -91,6 +127,7 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+/* Selector nhóm (dấu phẩy): áp cùng khai báo cho nhiều selector. */
 h1,
 h2,
 h3 {
@@ -99,6 +136,10 @@ h3 {
 }
 
 /* ---------- 3. TIỆN ÍCH ---------- */
+/*
+  Container: giới hạn độ rộng nội dung và căn giữa (margin: 0 auto).
+  Đây là "tiện ích" (utility) dùng lại ở header, main, footer.
+*/
 .container {
   width: 100%;
   max-width: var(--container);
@@ -119,6 +160,12 @@ h3 {
   border: 0;
 }
 
+/*
+  NÚT BẤM: class gốc .btn + class biến thể (.btn-primary, .btn-outline)
+  → ghép nhiều class trên một thẻ: class="btn btn-primary" (Bootstrap cũng làm vậy).
+  transition: thay đổi thuộc tính một cách MƯỢT trong 0.2s thay vì nhảy tức thì.
+  inline-flex: nút vẫn nằm trong dòng nhưng bên trong căn giữa bằng Flexbox.
+*/
 .btn {
   display: inline-flex;
   align-items: center;
@@ -133,6 +180,10 @@ h3 {
   transition: background-color var(--transition), transform var(--transition);
 }
 
+/*
+  :active = lúc đang nhấn chuột; transform: scale() thu nhỏ nhẹ tạo cảm giác "bấm".
+  transform không làm xô lệch các phần tử xung quanh (không ảnh hưởng layout).
+*/
 .btn:active {
   transform: scale(0.97);
 }
@@ -158,6 +209,7 @@ h3 {
   text-decoration: none;
 }
 
+/* Khối nội dung dạng "thẻ" màu trắng có bóng đổ. */
 .section {
   background-color: var(--color-surface);
   margin: var(--space-4) 0;
@@ -166,6 +218,13 @@ h3 {
   box-shadow: var(--shadow-sm);
 }
 
+/*
+  FLEXBOX cơ bản: display: flex biến phần tử thành flex container,
+  các con trực tiếp thành flex item xếp theo TRỤC CHÍNH (mặc định: ngang).
+  - justify-content: căn theo trục chính (space-between: đẩy về hai đầu)
+  - align-items: căn theo trục phụ (center: giữa theo chiều dọc)
+  - gap: khoảng cách giữa các item (không cần margin)
+*/
 .section-header {
   display: flex;
   align-items: center;
@@ -176,6 +235,10 @@ h3 {
   padding-bottom: var(--space-3);
 }
 
+/*
+  Selector HẬU DUỆ (khoảng trắng): mọi h2 nằm bên trong .section-header.
+  Độ ưu tiên (0,1,1) > h2 đơn thuần (0,0,1).
+*/
 .section-header h2 {
   margin: 0;
   font-size: 16px;
@@ -189,6 +252,13 @@ h3 {
 }
 
 /* ---------- 4. TOP BAR + HEADER (Flexbox) ---------- */
+/*
+  position: sticky = bình thường như static, nhưng khi cuộn tới top: 0 thì "dính" lại.
+  z-index: 100 để header nằm TRÊN các phần tử khác khi cuộn qua.
+  ⚠️ Lỗi hay gặp: z-index chỉ có tác dụng với phần tử đã có position (khác static)
+     hoặc là flex/grid item.
+  ⚠️ Lỗi hay gặp: sticky không chạy nếu một phần tử cha có overflow: hidden.
+*/
 .site-header {
   background: linear-gradient(-180deg, #f53d2d, var(--color-primary));
   color: #ffffff;
@@ -197,6 +267,10 @@ h3 {
   z-index: 100;
 }
 
+/*
+  display: none ẩn hoàn toàn (không chiếm chỗ). Media query 768px bật lại bằng
+  display: flex – đây là tư duy MOBILE-FIRST: mặc định cho mobile, thêm dần cho màn lớn.
+*/
 .topbar {
   display: none; /* ẩn trên mobile, hiện ở tablet trở lên */
   justify-content: space-between;
@@ -218,6 +292,10 @@ h3 {
   padding-left: var(--space-4);
 }
 
+/*
+  Hàng header chính: logo | ô tìm kiếm | giỏ hàng.
+  flex-wrap: wrap cho phép item xuống dòng khi hết chỗ (mặc định nowrap = ép trên một hàng).
+*/
 .header-main {
   display: flex;
   flex-wrap: wrap; /* mobile: ô tìm kiếm xuống dòng */
@@ -244,6 +322,11 @@ h3 {
   height: 36px;
 }
 
+/*
+  order: thay đổi THỨ TỰ HIỂN THỊ của flex item mà không sửa HTML.
+  flex: 1 1 100% = flex-grow (giãn) | flex-shrink (co) | flex-basis (kích thước gốc)
+  → trên mobile ô tìm kiếm chiếm trọn một hàng riêng.
+*/
 .search-form {
   order: 3; /* mobile: đẩy xuống cuối hàng */
   flex: 1 1 100%;
@@ -253,6 +336,11 @@ h3 {
   padding: 3px;
 }
 
+/*
+  flex: 1 → input giãn chiếm hết chỗ trống còn lại cạnh nút.
+  min-width: 0 cho phép input co nhỏ hơn kích thước mặc định của nó.
+  ⚠️ Lỗi hay gặp: thiếu min-width: 0 → input đẩy nút tràn ra ngoài trên màn hẹp.
+*/
 .search-form input {
   flex: 1;
   min-width: 0;
@@ -266,6 +354,7 @@ h3 {
   padding: var(--space-2) var(--space-4);
 }
 
+/* Mẹo Flexbox: margin-left: auto "ăn" hết khoảng trống bên trái → đẩy item sang phải. */
 .header-actions {
   margin-left: auto; /* đẩy cụm này sang phải */
   display: flex;
@@ -273,6 +362,12 @@ h3 {
   gap: var(--space-4);
 }
 
+/*
+  POSITION relative + absolute (cặp đôi hay dùng nhất):
+  - Cha đặt position: relative → trở thành "mốc" (containing block).
+  - Con position: absolute → top/right/bottom/left tính theo cha gần nhất có position.
+  ⚠️ Lỗi hay gặp: quên position: relative ở cha → con bay lên góc trang (tính theo <html>).
+*/
 .cart {
   position: relative; /* làm mốc cho badge số lượng */
   font-size: 26px;
@@ -298,6 +393,7 @@ h3 {
   text-align: center;
 }
 
+/* Gợi ý từ khóa: ẩn trên mobile, hiện ở ≥ 768px (xem phần 12). */
 .search-hints {
   display: none;
   list-style: none;
@@ -315,6 +411,10 @@ h3 {
   box-shadow: var(--shadow-sm);
 }
 
+/*
+  Menu danh mục: Flexbox một hàng; overflow-x: auto cho phép VUỐT NGANG trên mobile
+  thay vì xuống nhiều dòng. white-space: nowrap (ở thẻ a) giữ chữ không bị gãy dòng.
+*/
 .category-nav ul {
   list-style: none;
   margin: 0;
@@ -333,6 +433,10 @@ h3 {
   transition: color var(--transition), border-color var(--transition);
 }
 
+/*
+  Đánh dấu trang hiện tại bằng thuộc tính aria-current="page" thay vì thêm class riêng
+  → vừa giúp trình đọc màn hình, vừa làm "móc" để CSS chọn.
+*/
 .category-nav a:hover,
 .category-nav a[aria-current="page"] {
   /* selector thuộc tính [attr="value"] */
@@ -342,12 +446,22 @@ h3 {
 }
 
 /* ---------- 6. BANNER (@keyframes) ---------- */
+/*
+  GRID 1 cột trên mobile. Ở ≥ 768px đổi thành grid-template-columns: 2fr 1fr
+  (banner chiếm 2 phần, cột phụ 1 phần) – xem phần 12.
+  fr = "fraction": một phần của khoảng trống còn lại sau khi trừ gap.
+*/
 .hero {
   display: grid;
   gap: var(--space-2);
   margin-top: var(--space-4);
 }
 
+/*
+  Banner chạy tự động bằng CSS thuần (không JavaScript):
+  .banner là "khung nhìn" (overflow: hidden cắt phần thừa),
+  .banner-track là dải 3 slide nằm ngang, được dịch trái bằng @keyframes.
+*/
 .banner {
   position: relative;
   overflow: hidden;
@@ -368,6 +482,11 @@ h3 {
   animation-play-state: paused;
 }
 
+/*
+  flex: 0 0 calc(100% / 3) = không giãn, không co, rộng đúng 1/3 track (= 1 khung).
+  flex-direction: column → trục chính thành DỌC, nên justify-content: center
+  căn giữa theo chiều dọc (trục chính đã đổi!).
+*/
 .banner-slide {
   flex: 0 0 calc(100% / 3);
   display: flex;
@@ -387,6 +506,7 @@ h3 {
   max-width: 420px;
 }
 
+/* align-self: ghi đè align-items cho riêng một item (không kéo nút rộng hết khung). */
 .banner-slide .btn {
   align-self: flex-start;
   background-color: #ffffff;
@@ -405,6 +525,12 @@ h3 {
   background: linear-gradient(135deg, #8e24aa, #ec407a);
 }
 
+/*
+  @keyframes: khai báo các mốc (%) của animation; trình duyệt tự tính phần ở giữa.
+  Mỗi slide đứng yên ~28% thời gian rồi trượt sang slide kế (12s / 3 slide = 4s mỗi slide).
+  Dùng transform: translateX() thay vì left/margin vì transform mượt hơn
+  (không bắt trình duyệt tính lại layout).
+*/
 @keyframes slide {
   0%,
   28% {
@@ -426,6 +552,10 @@ h3 {
   }
 }
 
+/*
+  Kỹ thuật căn giữa phần tử absolute: left: 50% đưa MÉP TRÁI vào giữa,
+  translateX(-50%) kéo lùi lại nửa chiều rộng của chính nó.
+*/
 .banner-dots {
   position: absolute;
   bottom: var(--space-3);
@@ -443,6 +573,10 @@ h3 {
   animation: dot 12s infinite;
 }
 
+/*
+  :nth-child(n) chọn con thứ n. animation-delay lệch 4s/8s để mỗi chấm sáng
+  đúng lúc slide tương ứng hiện ra.
+*/
 .banner-dots span:nth-child(2) {
   animation-delay: 4s;
 }
@@ -465,6 +599,7 @@ h3 {
   }
 }
 
+/* Cột banner phụ: ẩn trên mobile, hiện thành grid ở ≥ 768px. */
 .hero-side {
   display: none;
 }
@@ -483,6 +618,10 @@ h3 {
   font-size: 16px;
 }
 
+/*
+  Hai class viết liền (không khoảng trắng) = phần tử có CẢ HAI class.
+  Khác với ".mini-banner .voucher" (có khoảng trắng) = .voucher nằm BÊN TRONG .mini-banner.
+*/
 .mini-banner.voucher {
   background: linear-gradient(135deg, #00897b, #43a047);
 }
@@ -492,6 +631,11 @@ h3 {
 }
 
 /* Tôn trọng người dùng tắt hiệu ứng chuyển động */
+/*
+  prefers-reduced-motion: một số người bị chóng mặt với chuyển động và đã bật
+  "Giảm chuyển động" trong hệ điều hành → tắt animation/transition cho họ.
+  !important ở đây hợp lý vì cần thắng mọi transition khai báo ở chỗ khác.
+*/
 @media (prefers-reduced-motion: reduce) {
   .banner-track,
   .banner-dots span {
@@ -504,6 +648,12 @@ h3 {
 }
 
 /* ---------- 7. DANH MỤC NHANH (Grid) ---------- */
+/*
+  CSS GRID: chia lưới theo CẢ hàng và cột (Flexbox chỉ theo một trục).
+  repeat(4, 1fr) = 4 cột bằng nhau. Item tự xuống hàng mới khi đủ 4 cột.
+  Khi nào dùng gì? Flexbox cho một hàng/một cột (menu, thanh công cụ);
+  Grid cho lưới hai chiều (danh sách sản phẩm, bố cục trang).
+*/
 .quick-categories {
   list-style: none;
   margin: 0;
@@ -532,6 +682,7 @@ h3 {
   text-decoration: none;
 }
 
+/* Mẹo căn giữa "hoàn hảo": display: grid + place-items: center (cả ngang lẫn dọc). */
 .quick-categories .icon {
   display: grid;
   place-items: center;
@@ -543,12 +694,20 @@ h3 {
 }
 
 /* ---------- 8. THẺ SẢN PHẨM ---------- */
+/*
+  Lưới sản phẩm: số cột tăng dần theo màn hình (2 → 3 → 4 → 5 → 6, xem phần 12).
+  Cách khác không cần media query: repeat(auto-fill, minmax(160px, 1fr)).
+*/
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* mobile: 2 cột */
   gap: var(--space-2);
 }
 
+/*
+  Thẻ sản phẩm: position: relative làm mốc cho .badge / .tag-mall (absolute).
+  overflow: hidden cắt phần ảnh phóng to khi hover không tràn ra ngoài thẻ.
+*/
 .product-card {
   position: relative; /* mốc cho .badge (absolute) */
   display: flex;
@@ -560,6 +719,11 @@ h3 {
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
+/*
+  Hiệu ứng nổi lên khi hover: transform + box-shadow, đã khai báo transition ở
+  .product-card nên chuyển động mượt cả lúc vào lẫn lúc ra.
+  ⚠️ Lỗi hay gặp: đặt transition trong :hover → chỉ mượt lúc rê vào, rời chuột thì giật.
+*/
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
@@ -570,6 +734,7 @@ h3 {
   margin: 0;
 }
 
+/* aspect-ratio: 1 / 1 giữ khung ảnh luôn vuông dù chiều rộng thay đổi. */
 .product-thumb {
   display: grid;
   place-items: center;
@@ -583,6 +748,10 @@ h3 {
   transform: scale(1.06);
 }
 
+/*
+  Selector CON TRỰC TIẾP (>): chỉ thẻ <a> là con ngay cấp dưới của .product-card.
+  height: 100% + flex column giúp các thẻ trong cùng hàng cao bằng nhau.
+*/
 .product-card > a {
   display: flex;
   flex-direction: column;
@@ -616,6 +785,10 @@ h3 {
   flex: 1;
 }
 
+/*
+  -webkit-line-clamp: cắt chữ sau 2 dòng và thêm dấu "..."
+  (cần đi kèm display: -webkit-box và -webkit-box-orient: vertical).
+*/
 .product-name {
   margin: 0;
   font-size: 13px;
@@ -631,6 +804,10 @@ h3 {
   max-height: 39px; /* 2 dòng × 13px × 1.5 */
 }
 
+/*
+  margin-top: auto trong flex column đẩy khối này xuống ĐÁY thẻ
+  → giá của mọi sản phẩm thẳng hàng dù tên dài ngắn khác nhau.
+*/
 .product-meta {
   display: flex;
   flex-wrap: wrap;
@@ -662,6 +839,10 @@ h3 {
 }
 
 /* Badge giảm giá: position absolute góc trên phải */
+/*
+  clip-path: polygon(...) cắt hình theo các điểm tọa độ (x y) – không cần ảnh.
+  z-index: 1 để badge nằm trên ảnh sản phẩm.
+*/
 .badge {
   position: absolute;
   top: 0;
@@ -699,6 +880,11 @@ h3 {
 }
 
 /* Thanh tiến độ Flash Sale */
+/*
+  Thanh tiến độ: .progress (relative) là mốc; span màu (absolute) có width
+  đặt bằng inline style trong HTML (82%, 64%...) vì đó là DỮ LIỆU của từng sản phẩm.
+  inset: 0 auto 0 0 = viết gọn top: 0; right: auto; bottom: 0; left: 0.
+*/
 .progress {
   position: relative;
   margin-top: auto;
@@ -724,6 +910,7 @@ h3 {
   position: relative; /* nằm trên thanh màu */
 }
 
+/* Đồng hồ đếm ngược (tĩnh): inline-flex để nằm cùng dòng với tiêu đề. */
 .countdown {
   display: inline-flex;
   gap: 4px;
@@ -741,6 +928,12 @@ h3 {
 }
 
 /* ---------- 9. BỐ CỤC MAIN + ASIDE ---------- */
+/*
+  Bố cục aside + nội dung: mobile 1 cột; ≥ 992px thành
+  grid-template-columns: 220px 1fr (cột trái cố định, cột phải lấp phần còn lại).
+  Có thể đặt tên vùng bằng grid-template-areas, ví dụ:
+    grid-template-areas: "aside main";  rồi gán grid-area: aside; cho từng con.
+*/
 .content-layout {
   display: grid;
   gap: var(--space-4);
@@ -755,6 +948,7 @@ h3 {
   margin-bottom: var(--space-2);
 }
 
+/* Reset viền mặc định của fieldset, chỉ giữ một đường kẻ phía trên. */
 .filters fieldset {
   border: 0;
   border-top: 1px solid var(--color-border);
@@ -768,6 +962,7 @@ h3 {
   margin-bottom: var(--space-2);
 }
 
+/* Label bọc input checkbox/radio → bấm vào chữ cũng chọn được; cursor: pointer báo "bấm được". */
 .filters label {
   display: flex;
   gap: var(--space-2);
@@ -797,6 +992,7 @@ h3 {
 }
 
 /* ---------- 10. FORM ---------- */
+/* Trang đăng ký (register.html): khung form căn giữa, rộng tối đa 720px. */
 .form-page {
   max-width: 720px;
   margin: var(--space-6) auto;
@@ -826,11 +1022,13 @@ h3 {
   padding: 0 var(--space-2);
 }
 
+/* Lưới các ô nhập: 1 cột trên mobile; class .two-cols thành 2 cột ở ≥ 576px. */
 .form-grid {
   display: grid;
   gap: var(--space-4);
 }
 
+/* Mỗi .field = label + input + gợi ý, xếp dọc bằng flex column. */
 .field {
   display: flex;
   flex-direction: column;
@@ -843,11 +1041,19 @@ h3 {
 }
 
 /* Dấu * cho trường bắt buộc: dùng pseudo-element ::after */
+/*
+  PSEUDO-ELEMENT ::after chèn nội dung ảo (content) vào CUỐI phần tử, không cần sửa HTML.
+  ⚠️ Lỗi hay gặp: quên thuộc tính content → ::before/::after không hiện gì.
+*/
 .required::after {
   content: " *";
   color: var(--color-danger);
 }
 
+/*
+  :not(...) loại trừ: style mọi input TRỪ checkbox/radio/range/color
+  (các loại này không nên bị ép width: 100% và padding).
+*/
 .field input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
 .field select,
 .field textarea {
@@ -860,6 +1066,11 @@ h3 {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+/*
+  Tự vẽ trạng thái focus bằng border + box-shadow.
+  ⚠️ Lỗi hay gặp: outline: none mà KHÔNG thay bằng hiệu ứng khác → người dùng
+     bàn phím không biết đang ở ô nào.
+*/
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
@@ -869,6 +1080,11 @@ h3 {
 }
 
 /* Pseudo-class validation: chỉ báo lỗi sau khi người dùng đã nhập */
+/*
+  :user-invalid / :user-valid khác :invalid ở chỗ chỉ áp dụng SAU khi người dùng
+  đã tương tác → trang vừa mở không bị đỏ lòe.
+  Dựa trên các thuộc tính kiểm tra của HTML: required, minlength, pattern, type="email"...
+*/
 .field input:user-invalid,
 .field select:user-invalid,
 .field textarea:user-invalid {
@@ -897,6 +1113,7 @@ h3 {
   cursor: pointer;
 }
 
+/* justify-content: flex-end → dồn các nút sang phải. */
 .form-actions {
   display: flex;
   flex-wrap: wrap;
@@ -904,6 +1121,7 @@ h3 {
   justify-content: flex-end;
 }
 
+/* Hộp ghi chú: viền trái đậm làm điểm nhấn. */
 .note {
   background-color: var(--color-primary-light);
   border-left: 4px solid var(--color-primary);
@@ -927,6 +1145,7 @@ h3 {
   font-size: 13px;
 }
 
+/* Footer: Grid 2 cột trên mobile, 4 cột ở ≥ 768px. */
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -978,6 +1197,14 @@ h3 {
 
 /* ---------- 12. MEDIA QUERIES (mobile-first) ---------- */
 
+/*
+  MOBILE-FIRST: các rule phía trên là cho mobile. Mỗi @media (min-width: X)
+  chỉ GHI ĐÈ những gì thay đổi khi màn hình RỘNG HƠN X.
+  Thứ tự phải tăng dần (576 → 768 → 992 → 1200) vì rule viết sau thắng.
+  ⚠️ Lỗi hay gặp: quên thẻ <meta name="viewport"> trong HTML → điện thoại giả lập
+     màn hình 980px và media query không chạy như mong đợi.
+  Kiểm tra: DevTools → Toggle device toolbar (Ctrl+Shift+M).
+*/
 /* Tablet ≥ 576px */
 @media (min-width: 576px) {
   .product-grid {
@@ -1086,6 +1313,7 @@ h3 {
      #specificity-demo p       → (1,0,1)  ← thắng các rule trên
      style="..." (inline)      → thắng tất cả, trừ !important
 */
+/* Thử nghiệm: mở css-lab.html, F12 → chọn từng dòng chữ để xem rule nào bị gạch ngang (thua). */
 .demo p {
   color: #1565c0; /* (0,1,1) */
 }
@@ -1116,10 +1344,18 @@ h3 {
   margin-left: var(--space-3);
 }
 
+/*
+  ⚠️ Lỗi hay gặp: lạm dụng !important để "chữa cháy" → về sau phải dùng !important
+     chồng !important. Hãy tăng độ cụ thể của selector hoặc sắp xếp lại thứ tự rule.
+*/
 .inline-demo {
   color: #d32f2f !important; /* !important: thắng cả id – chỉ dùng khi thật cần */
 }
 
+/*
+  Bảng rộng trên mobile: bọc trong khung overflow-x: auto để cuộn ngang
+  thay vì làm vỡ bố cục cả trang.
+*/
 .table-wrap {
   overflow-x: auto;
 }
@@ -1141,6 +1377,7 @@ h3 {
   color: #ffffff;
 }
 
+/* Tô sáng hàng đang rê chuột giúp đọc bảng dễ hơn. */
 .spec-table tbody tr:hover {
   background-color: var(--color-primary-light);
 }
@@ -1151,6 +1388,7 @@ h3 {
   font-size: 18px;
 }
 
+/* Thanh sắp xếp kết quả: dùng chung .section-header (flex) và bổ sung viền, xuống dòng. */
 .result-sort {
   border: 1px solid var(--color-border);
   margin-bottom: var(--space-4);

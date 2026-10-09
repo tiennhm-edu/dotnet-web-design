@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!--
+  P5 - My Portfolio (Buổi 18–22): Bootstrap 5 + JavaScript thuần (vanilla JS).
+  Bootstrap = bộ CSS + JS viết sẵn: ta chỉ GẮN CLASS vào HTML là có giao diện
+  (lưới, nút, card, modal...), không phải tự viết CSS như P4.
+  data-bs-theme="light|dark": Bootstrap 5.3 đổi toàn bộ màu theo thuộc tính này
+  (js/main.js đổi giá trị khi bấm nút 🌙). Mọi thuộc tính data-* là "dữ liệu tùy ý"
+  gắn vào thẻ; data-bs-* là quy ước riêng của Bootstrap.
+  Đọc theo thứ tự: file này → css/style.css (phần tùy biến) → js/main.js (tương tác).
+-->
 <html lang="vi" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +16,14 @@
   <title>Nguyễn Văn A - .NET Developer Portfolio</title>
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
+  <!--
+    Script nhỏ đặt NGAY TRONG <head> (chạy trước khi trang hiển thị):
+    - localStorage.getItem đọc theme đã lưu từ lần trước; bọc try/catch vì
+      localStorage có thể bị chặn và NÉM LỖI (không chỉ trả về null).
+    - Chưa lưu gì → theo cài đặt hệ điều hành (prefers-color-scheme: dark).
+    - (function () { ... })() = IIFE: hàm tự chạy, biến bên trong không "rò" ra ngoài.
+    Nếu đặt đoạn này ở cuối trang, người dùng sẽ thấy trang trắng chớp rồi mới tối.
+  -->
   <!-- Áp dụng theme đã lưu TRƯỚC khi trang vẽ để tránh "nháy" màu -->
   <script>
     (function () {
@@ -23,6 +40,12 @@
     })();
   </script>
 
+  <!--
+    Nạp Bootstrap từ CDN (máy chủ phân phối nội dung) – không cần tải file về.
+    - Ghim phiên bản chính xác (5.3.3) để Bootstrap ra bản mới không làm vỡ giao diện.
+    - integrity (SRI): mã băm của file; nếu file trên CDN bị sửa, trình duyệt từ chối nạp.
+    - crossorigin="anonymous": bắt buộc đi kèm integrity khi nạp từ tên miền khác.
+  -->
   <!-- Bootstrap 5.3.3 CSS (CDN jsDelivr, ghim phiên bản chính xác) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -31,27 +54,57 @@
   <!-- CSS riêng: đặt SAU Bootstrap để ghi đè -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+<!--
+  Scrollspy (data-bs-spy="scroll"): Bootstrap tự tô sáng mục menu tương ứng với
+  section đang xem. data-bs-target trỏ tới navbar; tabindex="0" để vùng cuộn nhận focus.
+  Component của Bootstrap được bật bằng THUỘC TÍNH data-bs-* – không cần viết JS.
+-->
 <body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="80" tabindex="0">
 
+  <!--
+    Skip link: ẩn đi, chỉ hiện khi người dùng nhấn Tab → nhảy thẳng tới <main id="main">
+    mà không phải đi qua cả menu. Utility class: position-absolute top-0 start-0 m-2
+    (start = trái trong ngôn ngữ viết trái → phải; m-2 = margin cấp 2).
+  -->
   <a class="visually-hidden-focusable position-absolute top-0 start-0 m-2 btn btn-primary" href="#main">Bỏ qua tới nội dung chính</a>
 
   <!-- ================= NAVBAR (collapse) ================= -->
+  <!--
+    NAVBAR responsive:
+    - navbar-expand-lg: từ màn ≥ lg (992px) menu trải ngang; nhỏ hơn thì gập vào nút ☰.
+    - fixed-top: dính trên cùng (style.css bù padding-top cho body để không che nội dung).
+    - bg-body-tertiary: màu nền tự đổi theo theme sáng/tối.
+    Các hậu tố breakpoint của Bootstrap: sm ≥576, md ≥768, lg ≥992, xl ≥1200, xxl ≥1400
+    (giống hệt các mốc media query mobile-first đã tự viết ở P4).
+  -->
   <nav id="mainNav" class="navbar navbar-expand-lg bg-body-tertiary fixed-top shadow-sm" aria-label="Điều hướng chính">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#home">
         <span class="brand-mark">NA</span>
         <span>Nguyễn Văn A</span>
       </a>
+      <!--
+        Utility class = mỗi class làm MỘT việc: d-flex (display:flex), align-items-center,
+        gap-2. order-lg-last: từ lg trở lên đưa cụm nút xuống CUỐI hàng (thuộc tính order
+        của Flexbox ở P4).
+      -->
       <div class="d-flex align-items-center gap-2 order-lg-last">
         <button id="themeToggle" class="btn btn-outline-secondary btn-sm" type="button" aria-label="Chuyển chế độ sáng/tối">
           <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
         </button>
+        <!--
+          Nút ☰ (Collapse): data-bs-toggle="collapse" + data-bs-target="#navMenu" → bấm thì
+          Bootstrap mở/đóng phần tử có id="navMenu". aria-expanded được Bootstrap tự cập nhật.
+          ⚠️ Lỗi hay gặp: target "#navMenu" mà id viết khác (navmenu) → bấm không có gì xảy ra;
+             hoặc quên nạp bootstrap.bundle.min.js ở cuối trang.
+        -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
           aria-controls="navMenu" aria-expanded="false" aria-label="Mở menu">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
       <div class="collapse navbar-collapse" id="navMenu">
+        <!-- ms-auto = margin-start: auto → đẩy menu sang phải (mẹo margin auto của Flexbox). -->
         <ul class="navbar-nav ms-auto me-lg-3">
           <li class="nav-item"><a class="nav-link" href="#home">Trang chủ</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">Giới thiệu</a></li>
@@ -67,6 +120,12 @@
   <main id="main">
     <!-- ================= HERO / CAROUSEL ================= -->
     <section id="home" class="hero">
+      <!--
+        CAROUSEL (slider): data-bs-ride="carousel" tự chạy khi tải trang,
+        data-bs-interval="6000" = đổi slide mỗi 6 giây; carousel-fade: hiệu ứng mờ dần.
+        Nút indicator/prev/next nối với carousel qua data-bs-target="#heroCarousel".
+        Slide đang hiện phải có class "active" (chỉ MỘT slide).
+      -->
       <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -76,6 +135,15 @@
         <div class="carousel-inner">
           <div class="carousel-item active hero-slide hero-slide-1">
             <div class="container h-100 d-flex align-items-center">
+              <!--
+                LƯỚI 12 CỘT của Bootstrap: .container > .row > .col-*
+                - col-12: chiếm 12/12 (cả hàng) trên mọi màn hình
+                - col-md-7: từ md (≥768px) chiếm 7/12; cột ảnh col-md-5 chiếm 5/12 (7 + 5 = 12)
+                - g-4: khoảng cách (gutter) giữa các cột
+                ⚠️ Lỗi hay gặp: đặt .col trực tiếp mà không có .row bọc ngoài, hoặc tổng số cột > 12
+                   (cột thừa sẽ rớt xuống hàng mới).
+                d-none d-md-block: ẩn ảnh trên mobile, hiện từ md trở lên.
+              -->
               <div class="row align-items-center w-100 g-4">
                 <div class="col-12 col-md-7 text-white">
                   <p class="text-uppercase fw-semibold mb-2 opacity-75">Xin chào, mình là</p>
@@ -113,6 +181,10 @@
             </div>
           </div>
         </div>
+        <!--
+          Nút điều khiển: data-bs-slide="prev|next". .visually-hidden = chữ cho trình đọc
+          màn hình (giống .sr-only ở P4).
+        -->
         <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Slide trước</span>
@@ -125,6 +197,10 @@
     </section>
 
     <!-- ================= ABOUT: grid 12 cột ================= -->
+    <!--
+      section-padding là class TỰ VIẾT trong css/style.css – kết hợp Bootstrap với CSS riêng.
+      row g-5: 2 cột col-lg-5 + col-lg-7 trên desktop, xếp chồng (col-12) trên mobile.
+    -->
     <section id="about" class="section-padding">
       <div class="container">
         <div class="row g-5 align-items-center">
@@ -133,11 +209,19 @@
             <p class="lead">Mình là lập trình viên .NET với niềm yêu thích xây dựng sản phẩm web hoàn chỉnh – từ cơ sở dữ liệu tới giao diện.</p>
             <p class="text-body-secondary">Mình bắt đầu học lập trình với C# cơ bản, sau đó đi qua OOP, SQL Server, ASP.NET Core Web API và Blazor.
               Mình tin rằng code tốt là code <strong>dễ đọc</strong>, <strong>dễ kiểm thử</strong> và <strong>dễ bảo trì</strong>.</p>
+            <!--
+              list-unstyled bỏ dấu chấm đầu dòng; <i class="bi bi-..."> là icon font Bootstrap Icons
+              (aria-hidden="true" vì chỉ để trang trí).
+            -->
             <ul class="list-unstyled d-grid gap-2 mb-4">
               <li><i class="bi bi-geo-alt-fill text-primary me-2" aria-hidden="true"></i>TP. Hồ Chí Minh, Việt Nam</li>
               <li><i class="bi bi-envelope-fill text-primary me-2" aria-hidden="true"></i><a href="mailto:nguyenvana@example.com">nguyenvana@example.com</a></li>
               <li><i class="bi bi-briefcase-fill text-primary me-2" aria-hidden="true"></i>Sẵn sàng nhận việc full-time</li>
             </ul>
+            <!--
+              Nút mở MODAL: data-bs-toggle="modal" + data-bs-target="#cvModal" (modal nằm cuối trang).
+              <button type="button"> vì đây là hành động trong trang, không dẫn đi đâu.
+            -->
             <!-- Modal: mở CV tóm tắt -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cvModal">
               <i class="bi bi-file-earmark-person me-1" aria-hidden="true"></i> Xem CV tóm tắt
@@ -145,6 +229,12 @@
           </div>
 
           <div class="col-12 col-lg-7">
+            <!--
+              TABS: mỗi nút có data-bs-toggle="tab" + data-bs-target="#...-pane";
+              pane tương ứng có class tab-pane, pane đang mở thêm "show active".
+              role="tablist/tab/tabpanel" + aria-controls/aria-selected mô tả quan hệ cho trình đọc màn hình.
+              Card: card > card-body; border-0 shadow-sm p-4 là utility (bỏ viền, bóng nhẹ, padding).
+            -->
             <!-- Tabs: Kỹ năng theo nhóm -->
             <div class="card border-0 shadow-sm">
               <div class="card-body p-4">
@@ -159,6 +249,10 @@
                     <button class="nav-link" id="tools-tab" data-bs-toggle="tab" data-bs-target="#tools-pane" type="button" role="tab" aria-controls="tools-pane" aria-selected="false">Công cụ</button>
                   </li>
                 </ul>
+                <!--
+                  Progress bar: độ rộng thanh màu đặt bằng style="width: 90%" vì đó là DỮ LIỆU từng kỹ năng;
+                  aria-valuenow/min/max cho trình đọc màn hình biết giá trị thực.
+                -->
                 <div class="tab-content" id="skillTabsContent">
                   <div class="tab-pane fade show active" id="backend-pane" role="tabpanel" aria-labelledby="backend-tab" tabindex="0">
                     <div class="skill">
@@ -203,6 +297,10 @@
               </div>
             </div>
 
+            <!--
+              row-cols-2 row-cols-md-4: đặt SỐ CỘT ở cấp .row (2 cột mobile, 4 cột từ md)
+              → các con chỉ cần class "col", không phải ghi col-6/col-md-3 cho từng ô.
+            -->
             <!-- Số liệu: grid lồng nhau, mỗi breakpoint số cột khác nhau -->
             <div class="row row-cols-2 row-cols-md-4 g-3 mt-1 text-center">
               <div class="col"><div class="stat p-3 rounded-3 bg-body-tertiary"><strong class="d-block fs-3 text-primary">2+</strong><small>Năm kinh nghiệm</small></div></div>
@@ -216,6 +314,7 @@
     </section>
 
     <!-- ================= PROJECTS: pills + card grid + modal ================= -->
+    <!-- PROJECTS: Pills (giống tabs nhưng kiểu nút tròn: data-bs-toggle="pill") để lọc nhóm dự án. -->
     <section id="projects" class="section-padding bg-body-tertiary">
       <div class="container">
         <div class="text-center mb-4">
@@ -238,6 +337,10 @@
         <div class="tab-content">
           <!-- Pane 1 -->
           <div class="tab-pane fade show active" id="api-pane" role="tabpanel" aria-labelledby="api-tab" tabindex="0">
+            <!--
+              Lưới card: 1 → 2 → 3 cột theo breakpoint. card h-100 = cao 100% cột
+              → mọi card trong hàng cao bằng nhau.
+            -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
               <div class="col">
                 <article class="card h-100 project-card border-0 shadow-sm">
@@ -250,6 +353,11 @@
                     </div>
                   </div>
                   <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                    <!--
+                      MỘT modal dùng chung cho mọi dự án: dữ liệu riêng nằm ở data-title/data-tech/data-desc.
+                      js/main.js nghe sự kiện show.bs.modal, đọc các data-* này (qua dataset) và điền vào modal
+                      → không phải viết 8 modal giống nhau.
+                    -->
                     <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal"
                       data-title="eShop API" data-tech="ASP.NET Core 8 · EF Core · SQL Server · JWT · Swagger"
                       data-desc="Hệ thống API cho cửa hàng trực tuyến với 30+ endpoint, phân trang, lọc, xác thực JWT, phân quyền Admin/Customer và tài liệu Swagger.">Chi tiết</button>
@@ -338,6 +446,10 @@
                   <div class="card-body">
                     <h3 class="card-title h5">Code Cafe</h3>
                     <p class="card-text text-body-secondary">Website quán cà phê bằng HTML thuần.</p>
+                    <!--
+                      stretched-link: phủ vùng bấm của liên kết lên TOÀN BỘ card (card có position: relative).
+                      href="../" = lên thư mục cha rồi vào P3-code-cafe (đường dẫn tương đối).
+                    -->
                     <a class="stretched-link" href="../P3-code-cafe/index.html"><span class="visually-hidden">Mở dự án Code Cafe</span></a>
                   </div>
                 </article>
@@ -359,6 +471,10 @@
     </section>
 
     <!-- ================= SERVICES / FEATURE ================= -->
+    <!--
+      Lưới dịch vụ: col-12 col-md-6 col-xl-3 → 1 cột / 2 cột / 4 cột.
+      Đọc class từ trái sang phải: mặc định 12, từ md là 6, từ xl là 3 (mobile-first).
+    -->
     <section id="services" class="section-padding">
       <div class="container">
         <div class="text-center mb-5">
@@ -399,6 +515,10 @@
     </section>
 
     <!-- ================= JOURNEY: tabs + timeline + awards ================= -->
+    <!--
+      Timeline dùng <ol> (có thứ tự thời gian); đường kẻ và chấm tròn vẽ bằng CSS
+      (::before trong style.css), không cần ảnh.
+    -->
     <section id="journey" class="section-padding bg-body-tertiary">
       <div class="container">
         <div class="text-center mb-4">
@@ -453,6 +573,7 @@
 
           <div class="col-12 col-lg-5">
             <h3 class="h5 mb-3"><i class="bi bi-trophy-fill text-warning me-1" aria-hidden="true"></i> Giải thưởng</h3>
+            <!-- d-grid gap-3: xếp các card giải thưởng thành cột, cách đều nhau. -->
             <div class="d-grid gap-3">
               <div class="award card border-0 shadow-sm">
                 <div class="card-body d-flex gap-3 align-items-start">
@@ -497,9 +618,23 @@
               <p class="text-body-secondary">Có dự án hoặc cơ hội việc làm? Gửi lời nhắn cho mình nhé!</p>
             </div>
 
+            <!--
+              aria-live="polite": khi JS đổi nội dung, trình đọc màn hình sẽ đọc thông báo mới.
+              d-none = display: none; JS gỡ class này để hiện alert.
+            -->
             <!-- Thông báo kết quả (JS sẽ hiện/ẩn) -->
             <div id="formAlert" class="alert d-none" role="alert" aria-live="polite"></div>
 
+            <!--
+              FORM có kiểm tra bằng JavaScript (xem js/main.js):
+              - novalidate: TẮT bong bóng báo lỗi mặc định của trình duyệt để tự hiển thị lỗi kiểu
+                Bootstrap; các thuộc tính required/minlength/type="email" VẪN được dùng để kiểm tra.
+              - Không có action/method: JS chặn submit (preventDefault) và chỉ mô phỏng việc gửi.
+              - .form-label/.form-control/.form-select: style ô nhập của Bootstrap.
+              - .invalid-feedback: dòng báo lỗi, chỉ hiện khi form có class "was-validated"
+                và ô đó không hợp lệ (JS thêm class này khi bấm Gửi).
+              - label for ↔ input id giống P4; name là khóa khi gửi dữ liệu.
+            -->
             <form id="contactForm" class="card card-body border-0 shadow-sm p-4" novalidate>
               <div class="row g-3">
                 <div class="col-12 col-sm-6">
@@ -515,6 +650,7 @@
                 <div class="col-12">
                   <label for="contactTopic" class="form-label">Chủ đề <span class="text-danger">*</span></label>
                   <select class="form-select" id="contactTopic" name="topic" required>
+                    <!-- Option rỗng + required: buộc người dùng phải chọn một chủ đề thật. -->
                     <option value="" selected disabled>-- Chọn chủ đề --</option>
                     <option value="job">Cơ hội việc làm</option>
                     <option value="freelance">Dự án freelance</option>
@@ -526,6 +662,7 @@
                   <label for="contactMessage" class="form-label">Nội dung <span class="text-danger">*</span></label>
                   <textarea class="form-control" id="contactMessage" name="message" rows="4" required minlength="10" maxlength="500"></textarea>
                   <div class="invalid-feedback">Nội dung tối thiểu 10 ký tự.</div>
+                  <!-- Bộ đếm ký tự: JS nghe sự kiện input trên textarea để cập nhật số. -->
                   <div class="form-text"><span id="charCount">0</span>/500 ký tự</div>
                 </div>
                 <div class="col-12">
@@ -535,6 +672,7 @@
                     <div class="invalid-feedback">Bạn cần đồng ý trước khi gửi.</div>
                   </div>
                 </div>
+                <!-- Responsive cho nút: mobile d-grid (nút rộng hết hàng, dễ bấm), từ sm d-flex dồn sang phải. -->
                 <div class="col-12 d-grid d-sm-flex justify-content-sm-end gap-2">
                   <button type="reset" class="btn btn-outline-secondary">Xóa</button>
                   <button type="submit" class="btn btn-primary px-4"><i class="bi bi-send me-1" aria-hidden="true"></i> Gửi lời nhắn</button>
@@ -548,6 +686,12 @@
   </main>
 
   <!-- ================= FOOTER ================= -->
+  <!--
+    data-bs-theme="dark" trên riêng footer: phần này luôn tối dù cả trang đang sáng.
+    flex-column flex-md-row: mobile xếp dọc, từ md xếp ngang.
+    Liên kết ngoài: target="_blank" + rel="noopener noreferrer"; aria-label đặt tên
+    cho liên kết chỉ có icon. <span id="year"> được JS cập nhật năm hiện tại.
+  -->
   <footer class="py-4 bg-dark text-white-50" data-bs-theme="dark">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
       <p class="mb-0">&copy; <span id="year">2026</span> Nguyễn Văn A (nhân vật giả định) · Dự án học tập Bootstrap 5</p>
@@ -559,12 +703,19 @@
     </div>
   </footer>
 
+  <!-- Nút ẩn mặc định (CSS .back-to-top), JS thêm class .show khi cuộn xuống đủ xa. -->
   <!-- Nút lên đầu trang -->
   <button id="backToTop" class="btn btn-primary rounded-circle shadow back-to-top" type="button" aria-label="Lên đầu trang">
     <i class="bi bi-arrow-up" aria-hidden="true"></i>
   </button>
 
   <!-- ================= MODAL: chi tiết dự án (1 modal dùng chung) ================= -->
+  <!--
+    Cấu trúc MODAL: .modal > .modal-dialog > .modal-content > header/body/footer.
+    tabindex="-1" để Bootstrap đưa focus vào modal; aria-labelledby trỏ tới tiêu đề.
+    data-bs-dismiss="modal" trên nút → bấm là đóng modal (không cần JS).
+    modal-dialog-centered: căn giữa theo chiều dọc.
+  -->
   <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -584,6 +735,7 @@
   </div>
 
   <!-- ================= MODAL: CV tóm tắt ================= -->
+  <!-- modal-lg: modal rộng hơn; modal-dialog-scrollable: nội dung dài thì cuộn bên trong modal. -->
   <div class="modal fade" id="cvModal" tabindex="-1" aria-labelledby="cvModalLabel">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -619,6 +771,12 @@
     </div>
   </div>
 
+  <!--
+    Script đặt CUỐI <body>: HTML phía trên đã có sẵn khi script chạy.
+    bootstrap.bundle = Bootstrap JS + Popper (cần cho dropdown/tooltip).
+    main.js nạp SAU Bootstrap vì có dùng đối tượng bootstrap.Modal.
+    ⚠️ Lỗi hay gặp: nạp main.js trước Bootstrap → lỗi "bootstrap is not defined".
+  -->
   <!-- Bootstrap 5.3.3 JS bundle (đã gồm Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
