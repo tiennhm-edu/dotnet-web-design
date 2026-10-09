@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Code Cafe - quán cà phê dành cho dân lập trình. Bài thực hành HTML cơ bản.">
+  <title>Code Cafe - Trang chủ</title>
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+</head>
+<!--
+  P3 - Code Cafe (Buổi 14 - Bài 3.1 HTML)
+  Quy ước bài này: CHỈ dùng HTML thuần + inline style (chưa học CSS external).
+-->
+<body style="margin: 0; font-family: Arial, Helvetica, sans-serif; background-color: #fff8f0; color: #3e2723;">
+
+  <!-- ===== PHẦN ĐẦU TRANG ===== -->
+  <div id="top" style="background-color: #3e2723; color: #fff3e0; padding: 16px; text-align: center;">
+    <img src="images/logo.svg" alt="Logo Code Cafe" width="80" height="80">
+    <h1 style="margin: 8px 0;">Code Cafe</h1>
+    <p style="margin: 0; font-style: italic;">Code ngon – Cà phê thơm – Bug tự bay</p>
+  </div>
+
+  <!-- ===== THANH ĐIỀU HƯỚNG (liên kết nội bộ giữa các trang) ===== -->
+  <p style="background-color: #6d4c41; margin: 0; padding: 12px; text-align: center;">
+    <a href="index.html" style="color: #ffe0b2; font-weight: bold;">Trang chủ</a> |
+    <a href="menu.html" style="color: #ffe0b2;">Thực đơn</a> |
+    <a href="contact.html" style="color: #ffe0b2;">Liên hệ</a> |
+    <a href="#gio-mo-cua" style="color: #ffe0b2;">Giờ mở cửa</a>
+  </p>
+
+  <div style="max-width: 900px; margin: 0 auto; padding: 16px;">
+
+    <img src="images/cafe-banner.svg" alt="Không gian quán Code Cafe với đèn vàng và bàn gỗ" width="800" height="300" style="width: 100%; height: auto; border-radius: 8px;">
+
+    <!-- ===== GIỚI THIỆU: heading + đoạn văn + định dạng chữ ===== -->
+    <h2>Chào mừng bạn đến với Code Cafe</h2>
+    <p>
+      <strong>Code Cafe</strong> là góc nhỏ dành cho <em>dân lập trình</em>, sinh viên và
+      bất kỳ ai cần một chỗ yên tĩnh để làm việc. Quán có <mark>wifi tốc độ cao</mark>,
+      ổ cắm điện ở mọi bàn và một bảng trắng lớn để bạn vẽ sơ đồ thuật toán.
+    </p>
+    <p>
+      Câu nói yêu thích của chủ quán:
+      <q>Mọi bug đều có thể sửa – sau một ly cà phê.</q>
+      Thức uống được pha từ hạt cà phê Việt Nam, rang mộc mỗi tuần.
+    </p>
+    <blockquote style="border-left: 4px solid #d7a86e; margin: 16px 0; padding: 8px 16px; background-color: #fff3e0;">
+      “Mình đã fix được cái bug chạy mãi không ra ngay tại góc bàn số 5!”
+      <br>
+      <small>– Một khách quen, lập trình viên .NET</small>
+    </blockquote>
+
+    <hr>
+
+    <!-- ===== DANH SÁCH KHÔNG THỨ TỰ (ul) ===== -->
+    <h2>Vì sao dân IT thích Code Cafe?</h2>
+    <ul>
+      <li>Wifi 300 Mbps, mật khẩu là <code>HelloWorld2026</code></li>
+      <li>Ổ cắm điện và đèn bàn ở mọi chỗ ngồi</li>
+      <li>Không gian yên tĩnh, nhạc lo-fi nhẹ nhàng</li>
+      <li>Góc “pair programming” cho nhóm 2–4 người
+        <ul>
+          <li>Có màn hình phụ 24 inch</li>
+          <li>Có bảng trắng và bút lông</li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- ===== DANH SÁCH CÓ THỨ TỰ (ol) ===== -->
+    <h2>Cách gọi món trong 3 bước</h2>
+    <ol>
+      <li>Chọn món trong <a href="menu.html">thực đơn</a>.</li>
+      <li>Gọi món và thanh toán tại quầy.</li>
+      <li>Nhận số bàn, ngồi code – nhân viên sẽ mang đồ uống tới.</li>
+    </ol>
+
+    <h3>Thứ tự ưu tiên khi debug (ol kiểu chữ cái, bắt đầu từ c)</h3>
+    <ol type="a" start="3">
+      <li>Đọc kỹ thông báo lỗi</li>
+      <li>Đặt breakpoint</li>
+      <li>Uống thêm một ly cà phê</li>
+    </ol>
+
+    <!-- ===== DANH SÁCH ĐỊNH NGHĨA (dl) ===== -->
+    <h2>Từ điển cà phê cho người mới</h2>
+    <dl>
+      <dt><strong>Espresso</strong></dt>
+      <dd>Cà phê đậm đặc chiết xuất bằng áp suất cao, là “nền” của nhiều món khác.</dd>
+      <dt><strong>Bạc xỉu</strong></dt>
+      <dd>Nhiều sữa, ít cà phê – món quen thuộc của người Sài Gòn.</dd>
+      <dt><strong>Cold brew</strong></dt>
+      <dd>Cà phê ủ lạnh 12–18 giờ, vị êm và ít đắng.</dd>
+    </dl>
+
+    <hr>
+
+    <!-- ===== BLOCK vs INLINE ===== -->
+    <h2>Góc học tập: Block và Inline</h2>
+    <p>Phần tử <strong>block</strong> (như <code>div</code>, <code>p</code>, <code>h1</code>) chiếm hết chiều ngang và xuống dòng mới:</p>
+    <div style="background-color: #ffe0b2; border: 1px dashed #6d4c41; padding: 4px; margin-bottom: 4px;">div số 1 (block)</div>
+    <div style="background-color: #ffcc80; border: 1px dashed #6d4c41; padding: 4px;">div số 2 (block)</div>
+    <p>
+      Phần tử <strong>inline</strong> (như <code>span</code>, <code>a</code>, <code>strong</code>) chỉ chiếm đúng phần nội dung:
+      <span style="background-color: #ffe0b2; border: 1px dashed #6d4c41;">span 1</span>
+      <span style="background-color: #ffcc80; border: 1px dashed #6d4c41;">span 2</span>
+      <a href="#top">a (lên đầu trang)</a>
+    </p>
+
+    <!-- ===== Ký tự đặc biệt (HTML entities) ===== -->
+    <p>
+      Ký tự đặc biệt: <code>&lt;h1&gt;</code> là thẻ tiêu đề lớn nhất &amp; giá tính bằng &#8363; (đồng).
+      &copy; bản quyền, &rarr; mũi tên, khoảng&nbsp;trắng&nbsp;không&nbsp;ngắt.
+    </p>
+
+    <hr>
+
+    <!-- ===== GIỜ MỞ CỬA (đích của liên kết #gio-mo-cua) ===== -->
+    <h2 id="gio-mo-cua">Giờ mở cửa</h2>
+    <p>
+      Thứ Hai – Thứ Sáu: <b>7:00 – 22:00</b><br>
+      Thứ Bảy – Chủ Nhật: <b>8:00 – 23:00</b><br>
+      Ngày lễ: <i>mở cửa bình thường</i> (giá không đổi)
+    </p>
+
+    <!-- ===== Heading h1 → h6: minh họa cấp bậc ===== -->
+    <h2>Minh họa cấp bậc heading</h2>
+    <h3>h3 – Tiêu đề mục con</h3>
+    <h4>h4 – Tiêu đề nhỏ hơn</h4>
+    <h5>h5 – Hiếm khi dùng</h5>
+    <h6>h6 – Tiêu đề nhỏ nhất</h6>
+    <p><small>Mỗi trang chỉ nên có <strong>một</strong> thẻ h1. Không nhảy cóc cấp heading chỉ để lấy cỡ chữ.</small></p>
+
+    <!-- ===== Liên kết ngoài: mở tab mới ===== -->
+    <h2>Tài liệu tham khảo</h2>
+    <ul>
+      <li><a href="https://developer.mozilla.org/vi/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN – Tài liệu HTML (mở tab mới)</a></li>
+      <li><a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer">W3Schools – HTML Tutorial</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CHÂN TRANG ===== -->
+  <div style="background-color: #3e2723; color: #ffe0b2; padding: 16px; text-align: center; margin-top: 24px;">
+    <p style="margin: 4px;">&copy; 2026 Code Cafe – Bài thực hành HTML cơ bản.</p>
+    <p style="margin: 4px;">
+      Email: <a href="mailto:hello@codecafe.example?subject=%C4%90%E1%BA%B7t%20b%C3%A0n" style="color: #fff3e0;">hello@codecafe.example</a> |
+      Điện thoại: <a href="tel:+84900000000" style="color: #fff3e0;">0900&nbsp;000&nbsp;000</a>
+    </p>
+    <p style="margin: 4px;"><a href="#top" style="color: #fff3e0;">&uarr; Lên đầu trang</a></p>
+  </div>
+</body>
+</html>

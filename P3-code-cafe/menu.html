@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thực đơn đồ uống và bánh ngọt của Code Cafe.">
+  <title>Code Cafe - Thực đơn</title>
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+</head>
+<body style="margin: 0; font-family: Arial, Helvetica, sans-serif; background-color: #fff8f0; color: #3e2723;">
+
+  <div id="top" style="background-color: #3e2723; color: #fff3e0; padding: 16px; text-align: center;">
+    <img src="images/logo.svg" alt="Logo Code Cafe" width="64" height="64">
+    <h1 style="margin: 8px 0;">Thực đơn Code Cafe</h1>
+  </div>
+
+  <p style="background-color: #6d4c41; margin: 0; padding: 12px; text-align: center;">
+    <a href="index.html" style="color: #ffe0b2;">Trang chủ</a> |
+    <a href="menu.html" style="color: #ffe0b2; font-weight: bold;">Thực đơn</a> |
+    <a href="contact.html" style="color: #ffe0b2;">Liên hệ</a>
+  </p>
+
+  <div style="max-width: 900px; margin: 0 auto; padding: 16px;">
+
+    <!-- Mục lục: liên kết tới id trong cùng trang -->
+    <p>
+      Đi nhanh tới:
+      <a href="#bang-gia">Bảng giá đồ uống</a> ·
+      <a href="#combo">Combo</a> ·
+      <a href="#mon-noi-bat">Món nổi bật</a>
+    </p>
+
+    <!-- ===== BẢNG GIÁ: caption, thead, tbody, tfoot, rowspan ===== -->
+    <h2 id="bang-gia">Bảng giá đồ uống</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse; background-color: #ffffff;">
+      <caption style="padding: 8px; font-weight: bold;">Giá đã bao gồm VAT – đơn vị: nghìn đồng</caption>
+      <thead>
+        <tr style="background-color: #6d4c41; color: #ffffff;">
+          <th scope="col" style="padding: 8px;">Nhóm</th>
+          <th scope="col" style="padding: 8px;">Tên món</th>
+          <th scope="col" style="padding: 8px;">Size M</th>
+          <th scope="col" style="padding: 8px;">Size L</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" rowspan="3" style="background-color: #ffe0b2; padding: 8px;">Cà phê</th>
+          <td style="padding: 8px;">Cà phê đen đá</td>
+          <td style="padding: 8px; text-align: right;">25</td>
+          <td style="padding: 8px; text-align: right;">30</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">Cà phê sữa đá</td>
+          <td style="padding: 8px; text-align: right;">29</td>
+          <td style="padding: 8px; text-align: right;">35</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">Bạc xỉu</td>
+          <td style="padding: 8px; text-align: right;">32</td>
+          <td style="padding: 8px; text-align: right;">38</td>
+        </tr>
+        <tr>
+          <th scope="row" rowspan="2" style="background-color: #ffccbc; padding: 8px;">Trà</th>
+          <td style="padding: 8px;">Trà đào cam sả</td>
+          <td style="padding: 8px; text-align: right;">35</td>
+          <td style="padding: 8px; text-align: right;">42</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">Trà sen vàng</td>
+          <td style="padding: 8px; text-align: right;">39</td>
+          <td style="padding: 8px; text-align: right;">45</td>
+        </tr>
+        <tr>
+          <th scope="row" style="background-color: #fff59d; padding: 8px;">Bánh</th>
+          <td style="padding: 8px;">Bánh croissant bơ</td>
+          <!-- colspan: bánh chỉ có một size -->
+          <td colspan="2" style="padding: 8px; text-align: center;">28 (một size)</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr style="background-color: #fff3e0;">
+          <td colspan="4" style="padding: 8px; text-align: center;">
+            <em>Thêm 1 shot espresso: +10 · Đổi sữa yến mạch: +8</em>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- ===== BẢNG COMBO: colspan ở header ===== -->
+    <h2 id="combo">Combo “Deadline”</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse; background-color: #ffffff;">
+      <caption style="padding: 8px; font-weight: bold;">Combo tiết kiệm cho buổi code dài</caption>
+      <thead>
+        <tr style="background-color: #6d4c41; color: #ffffff;">
+          <th scope="col" rowspan="2" style="padding: 8px;">Combo</th>
+          <th scope="colgroup" colspan="2" style="padding: 8px;">Bao gồm</th>
+          <th scope="col" rowspan="2" style="padding: 8px;">Giá</th>
+        </tr>
+        <tr style="background-color: #8d6e63; color: #ffffff;">
+          <th scope="col" style="padding: 8px;">Đồ uống</th>
+          <th scope="col" style="padding: 8px;">Đồ ăn</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 8px;"><strong>Hello World</strong></td>
+          <td style="padding: 8px;">Cà phê sữa đá (M)</td>
+          <td style="padding: 8px;">Croissant bơ</td>
+          <td style="padding: 8px; text-align: right;">49</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;"><strong>Hotfix</strong></td>
+          <td style="padding: 8px;">2 × Cà phê đen đá (L)</td>
+          <td style="padding: 8px;">—</td>
+          <td style="padding: 8px; text-align: right;">55</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;"><strong>Release Night</strong></td>
+          <td style="padding: 8px;">Trà đào (L) + Bạc xỉu (L)</td>
+          <td style="padding: 8px;">2 × Croissant bơ</td>
+          <td style="padding: 8px; text-align: right;">125</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ===== ẢNH MÓN NỔI BẬT: img với alt, width, height, title ===== -->
+    <h2 id="mon-noi-bat">Món nổi bật</h2>
+    <p>Các ảnh dưới đây là phần tử <strong>inline</strong> nên nằm cạnh nhau trên cùng một dòng (nếu đủ chỗ):</p>
+    <p>
+      <img src="images/ca-phe-den.svg" alt="Cà phê đen đá" title="Cà phê đen đá" width="200" height="150">
+      <img src="images/bac-xiu.svg" alt="Bạc xỉu" title="Bạc xỉu" width="200" height="150">
+      <img src="images/tra-dao.svg" alt="Trà đào cam sả" title="Trà đào cam sả" width="200" height="150">
+      <img src="images/banh-croissant.svg" alt="Bánh croissant bơ" title="Bánh croissant bơ" width="200" height="150">
+    </p>
+
+    <p><a href="#top">&uarr; Lên đầu trang</a> · <a href="contact.html">Đặt bàn ngay &rarr;</a></p>
+  </div>
+
+  <div style="background-color: #3e2723; color: #ffe0b2; padding: 16px; text-align: center; margin-top: 24px;">
+    <p style="margin: 4px;">&copy; 2026 Code Cafe – Bài thực hành HTML cơ bản.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Form đăng ký: input types HTML5, validation attributes, method POST.">
+  <title>CyberShop - Đăng ký thành viên</title>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container">
+      <div class="topbar">
+        <ul>
+          <li><a href="#">Kênh người bán</a></li>
+          <li><a href="#">Tải ứng dụng</a></li>
+          <li><a href="#">Kết nối</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">🔔 Thông báo</a></li>
+          <li><a href="#">❓ Hỗ trợ</a></li>
+          <li><a href="register.html">Đăng ký</a></li>
+          <li><a href="#">Đăng nhập</a></li>
+        </ul>
+      </div>
+
+      <div class="header-main">
+        <a class="logo" href="index.html">
+          <img src="images/logo.svg" alt="" width="36" height="36">
+          <span>CyberShop</span>
+        </a>
+
+        <!-- Form tìm kiếm: method GET → dữ liệu nằm trên URL (search.html?q=...) -->
+        <form class="search-form" action="search.html" method="get" role="search">
+          <label for="q" class="sr-only">Tìm sản phẩm</label>
+          <input id="q" name="q" type="search" placeholder="Tìm trong CyberShop..." required minlength="2" autocomplete="off">
+          <button class="btn btn-primary" type="submit"><span aria-hidden="true">🔍</span><span class="sr-only">Tìm kiếm</span></button>
+        </form>
+
+        <div class="header-actions">
+          <a class="cart" href="#" aria-label="Giỏ hàng: 3 sản phẩm">
+            <span aria-hidden="true">🛒</span>
+            <span class="cart-count">3</span>
+          </a>
+        </div>
+      </div>
+
+      <ul class="search-hints">
+        <li><a href="search.html?q=tai+nghe">Tai nghe</a></li>
+        <li><a href="search.html?q=b%C3%A0n+ph%C3%ADm">Bàn phím</a></li>
+        <li><a href="search.html?q=balo">Balo</a></li>
+        <li><a href="search.html?q=%C3%A1o+thun">Áo thun</a></li>
+        <li><a href="search.html?q=s%C3%A1ch">Sách lập trình</a></li>
+      </ul>
+    </div>
+
+    <!-- ================= NAV DANH MỤC ================= -->
+    <nav class="category-nav" aria-label="Danh mục sản phẩm">
+      <div class="container">
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="index.html#flash-sale">Flash Sale</a></li>
+          <li><a href="index.html#goi-y">Gợi ý hôm nay</a></li>
+          <li><a href="search.html?q=th%E1%BB%9Di+trang">Thời trang</a></li>
+          <li><a href="search.html?q=%C4%91i%E1%BB%87n+t%E1%BB%AD">Điện tử</a></li>
+          <li><a href="search.html?q=nh%C3%A0+c%E1%BB%ADa">Nhà cửa</a></li>
+          <li><a href="search.html?q=s%C3%A1ch">Sách</a></li>
+          <li><a href="register.html">Đăng ký thành viên</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="container form-page">
+    <div class="form-card">
+      <h1>Đăng ký thành viên CyberShop</h1>
+      <div class="note">
+        <p>Form này dùng <code>method="post"</code>: dữ liệu nằm trong <strong>body</strong> của request, không hiện trên URL
+          (phù hợp với mật khẩu, thông tin cá nhân). Để quan sát, form gửi tới dịch vụ thử nghiệm
+          <code>httpbin.org/post</code> – nó trả lại đúng dữ liệu bạn đã gửi dưới dạng JSON.
+          <strong>Chỉ nhập dữ liệu giả</strong>.</p>
+        <p>Trình duyệt tự kiểm tra hợp lệ nhờ các thuộc tính HTML5: <code>required</code>, <code>minlength</code>,
+          <code>pattern</code>, <code>min</code>/<code>max</code>, <code>type="email"</code>…</p>
+      </div>
+
+      <form action="https://httpbin.org/post" method="post" target="_blank">
+        <fieldset>
+          <legend>Thông tin tài khoản</legend>
+          <div class="form-grid two-cols">
+            <div class="field">
+              <label for="username" class="required">Tên đăng nhập</label>
+              <input id="username" name="username" type="text" required minlength="4" maxlength="20"
+                pattern="[a-zA-Z0-9_]+" autocomplete="username" placeholder="vd: nguyenvana_dev"
+                aria-describedby="username-hint">
+              <small id="username-hint" class="hint">4–20 ký tự: chữ không dấu, số, dấu gạch dưới.</small>
+            </div>
+            <div class="field">
+              <label for="email" class="required">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" placeholder="ban@example.com">
+            </div>
+            <div class="field">
+              <label for="password" class="required">Mật khẩu</label>
+              <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password"
+                aria-describedby="password-hint">
+              <small id="password-hint" class="hint">Tối thiểu 8 ký tự.</small>
+            </div>
+            <div class="field">
+              <label for="phone" class="required">Số điện thoại</label>
+              <input id="phone" name="phone" type="tel" required pattern="0[0-9]{9}" autocomplete="tel"
+                placeholder="0900000000" aria-describedby="phone-hint">
+              <small id="phone-hint" class="hint">10 chữ số, bắt đầu bằng 0.</small>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Thông tin cá nhân</legend>
+          <div class="form-grid two-cols">
+            <div class="field">
+              <label for="fullname" class="required">Họ và tên</label>
+              <input id="fullname" name="fullname" type="text" required autocomplete="name" placeholder="Nguyễn Văn A">
+            </div>
+            <div class="field">
+              <label for="birthday">Ngày sinh</label>
+              <input id="birthday" name="birthday" type="date" min="1950-01-01" max="2012-12-31">
+            </div>
+            <div class="field">
+              <span class="field-label" id="gender-label">Giới tính</span>
+              <div class="inline-options" role="radiogroup" aria-labelledby="gender-label">
+                <label><input type="radio" name="gender" value="male"> Nam</label>
+                <label><input type="radio" name="gender" value="female"> Nữ</label>
+                <label><input type="radio" name="gender" value="other" checked> Khác</label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="city">Tỉnh/Thành phố</label>
+              <input id="city" name="city" type="text" list="city-list" placeholder="Gõ để chọn...">
+              <datalist id="city-list">
+                <option value="Hà Nội"></option>
+                <option value="TP. Hồ Chí Minh"></option>
+                <option value="Đà Nẵng"></option>
+                <option value="Cần Thơ"></option>
+                <option value="Hải Phòng"></option>
+              </datalist>
+            </div>
+            <div class="field">
+              <label for="website">Website / GitHub</label>
+              <input id="website" name="website" type="url" placeholder="https://github.com/ten-ban">
+            </div>
+            <div class="field">
+              <label for="orders">Số đơn mua mỗi tháng (dự kiến)</label>
+              <input id="orders" name="orders" type="number" min="0" max="100" step="1" value="2">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sở thích mua sắm</legend>
+          <div class="form-grid">
+            <div class="field">
+              <span class="field-label" id="interest-label">Danh mục quan tâm</span>
+              <div class="inline-options" role="group" aria-labelledby="interest-label">
+                <label><input type="checkbox" name="interests" value="fashion"> Thời trang</label>
+                <label><input type="checkbox" name="interests" value="electronics" checked> Điện tử</label>
+                <label><input type="checkbox" name="interests" value="books"> Sách</label>
+                <label><input type="checkbox" name="interests" value="home"> Nhà cửa</label>
+              </div>
+            </div>
+            <div class="form-grid two-cols">
+              <div class="field">
+                <label for="channel">Nhận khuyến mãi qua</label>
+                <select id="channel" name="channel">
+                  <optgroup label="Trực tuyến">
+                    <option value="email" selected>Email</option>
+                    <option value="app">Thông báo ứng dụng</option>
+                  </optgroup>
+                  <optgroup label="Điện thoại">
+                    <option value="sms">SMS</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="field">
+                <label for="fav-color">Màu yêu thích</label>
+                <input id="fav-color" name="favColor" type="color" value="#ff5722">
+              </div>
+              <div class="field">
+                <label for="budget">Ngân sách mỗi tháng (0–10 triệu ₫)</label>
+                <input id="budget" name="budget" type="range" min="0" max="10" step="1" value="2">
+              </div>
+            </div>
+            <div class="field">
+              <label for="note">Ghi chú</label>
+              <textarea id="note" name="note" rows="3" maxlength="300" placeholder="Bạn muốn CyberShop phục vụ điều gì?"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="inline-options">
+            <input type="checkbox" name="agree" value="yes" required>
+            <span class="required">Tôi đồng ý với điều khoản sử dụng của CyberShop</span>
+          </label>
+        </div>
+
+        <input type="hidden" name="source" value="cybershop-register">
+
+        <div class="form-actions">
+          <button class="btn btn-outline" type="reset">Nhập lại</button>
+          <button class="btn btn-primary" type="submit">Đăng ký</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <section>
+          <h2>Chăm sóc khách hàng</h2>
+          <ul>
+            <li><a href="#">Trung tâm trợ giúp</a></li>
+            <li><a href="#">Hướng dẫn mua hàng</a></li>
+            <li><a href="#">Chính sách đổi trả</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Về CyberShop</h2>
+          <ul>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="register.html">Đăng ký thành viên</a></li>
+            <li><a href="css-lab.html">Góc học tập CSS</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Thanh toán</h2>
+          <ul class="payment-list">
+            <li>Visa</li>
+            <li>Master</li>
+            <li>COD</li>
+            <li>Ví điện tử</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Liên hệ</h2>
+          <address>
+            <ul>
+              <li>📧 <a href="mailto:support@cybershop.example">support@cybershop.example</a></li>
+              <li>📞 <a href="tel:+84900000000">0900&nbsp;000&nbsp;000</a></li>
+            </ul>
+          </address>
+        </section>
+      </div>
+      <p class="copyright">&copy; 2026 CyberShop – Dự án học tập (thương hiệu giả định). Không phải website thương mại thật.</p>
+    </div>
+  </footer>
+</body>
+</html>

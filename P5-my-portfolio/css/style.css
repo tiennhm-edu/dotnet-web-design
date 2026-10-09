@@ -1,0 +1,336 @@
+/* =========================================================
+   P5 - My Portfolio (Buổi 18–22) - CSS bổ sung cho Bootstrap 5.3
+   Nguyên tắc: dùng utilities của Bootstrap trước, chỉ viết CSS
+   riêng cho phần Bootstrap không có sẵn (hero, timeline, ...).
+   Ghi đè biến Bootstrap bằng CSS variables --bs-*.
+   ========================================================= */
+
+:root {
+  --nav-height: 64px;
+  --brand-gradient: linear-gradient(135deg, #512bd4 0%, #0d6efd 100%);
+}
+
+/* Đổi màu primary của Bootstrap sang tím .NET (cả light & dark) */
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+  --bs-primary: #512bd4;
+  --bs-primary-rgb: 81, 43, 212;
+  --bs-link-color: #512bd4;
+  --bs-link-color-rgb: 81, 43, 212;
+  --bs-link-hover-color: #3d1fa3;
+  --bs-link-hover-color-rgb: 61, 31, 163;
+}
+
+[data-bs-theme="dark"] {
+  /* nền tối: dùng tím sáng hơn để chữ .text-primary đủ tương phản */
+  --bs-primary: #a78bfa;
+  --bs-primary-rgb: 167, 139, 250;
+  --bs-link-color: #a78bfa;
+  --bs-link-color-rgb: 167, 139, 250;
+  --bs-link-hover-color: #c4b5fd;
+  --bs-link-hover-color-rgb: 196, 181, 253;
+}
+
+/* Component dùng biến riêng nên cần chỉnh thêm */
+.btn-primary {
+  --bs-btn-bg: #512bd4;
+  --bs-btn-border-color: #512bd4;
+  --bs-btn-hover-bg: #3d1fa3;
+  --bs-btn-hover-border-color: #3d1fa3;
+  --bs-btn-active-bg: #34198c;
+  --bs-btn-active-border-color: #34198c;
+  --bs-btn-disabled-bg: #512bd4;
+  --bs-btn-disabled-border-color: #512bd4;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #512bd4;
+  --bs-btn-border-color: #512bd4;
+  --bs-btn-hover-bg: #512bd4;
+  --bs-btn-hover-border-color: #512bd4;
+  --bs-btn-active-bg: #512bd4;
+  --bs-btn-active-border-color: #512bd4;
+}
+
+[data-bs-theme="dark"] .btn-outline-primary {
+  --bs-btn-color: #a78bfa;
+  --bs-btn-border-color: #a78bfa;
+  --bs-btn-hover-color: #ffffff;
+}
+
+.nav-pills {
+  --bs-nav-pills-link-active-bg: #512bd4;
+}
+
+.progress-bar {
+  background-color: #512bd4;
+}
+
+/* Khi cuộn tới #id, chừa chỗ cho navbar fixed-top */
+section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+body {
+  padding-top: var(--nav-height);
+}
+
+/* ---------- Navbar ---------- */
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brand-gradient);
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.navbar .nav-link.active {
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+
+[data-bs-theme="dark"] .navbar .nav-link.active {
+  color: #a78bfa;
+}
+
+/* ---------- Hero / Carousel ---------- */
+.hero-slide {
+  height: calc(100vh - var(--nav-height));
+  min-height: 460px;
+  max-height: 720px;
+}
+
+.hero-slide-1 {
+  background: var(--brand-gradient);
+}
+
+.hero-slide-2 {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0, transparent 40%),
+    linear-gradient(135deg, #0f766e 0%, #0d6efd 100%);
+}
+
+.hero-slide-3 {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0, transparent 40%),
+    linear-gradient(135deg, #be185d 0%, #7c3aed 100%);
+}
+
+.hero-avatar {
+  border: 6px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ---------- Section chung ---------- */
+.section-padding {
+  padding: 80px 0;
+}
+
+.section-title {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--brand-gradient);
+}
+
+.text-center .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.skill + .skill {
+  margin-top: 1rem;
+}
+
+.skill .progress {
+  height: 8px;
+  margin-top: 0.25rem;
+}
+
+/* ---------- Project cards ---------- */
+.project-card {
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+.project-thumb {
+  display: grid;
+  place-items: center;
+  height: 160px;
+  font-size: 3.5rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.project-thumb i {
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-thumb i {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+.thumb-1 { background: linear-gradient(135deg, #512bd4, #8b5cf6); }
+.thumb-2 { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+.thumb-3 { background: linear-gradient(135deg, #10b981, #0f766e); }
+.thumb-4 { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+.thumb-5 { background: linear-gradient(135deg, #ec4899, #be185d); }
+.thumb-6 { background: linear-gradient(135deg, #8d6e63, #3e2723); }
+
+/* ---------- Features ---------- */
+.feature {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.feature:hover {
+  border-color: var(--bs-primary) !important;
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 1.5rem;
+}
+
+/* ---------- Timeline ---------- */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  left: 0.5rem;
+  width: 2px;
+  background-color: var(--bs-border-color);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.625rem;
+  top: 0.3rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--bs-body-bg);
+  border: 3px solid var(--bs-primary);
+}
+
+.timeline-date {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+[data-bs-theme="dark"] .timeline-date {
+  color: #c4b5fd;
+  background-color: rgba(167, 139, 250, 0.15);
+}
+
+[data-bs-theme="dark"] .timeline-item::before {
+  border-color: #a78bfa;
+}
+
+/* ---------- Awards ---------- */
+.award-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
+
+/* ---------- Back to top ---------- */
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1030;
+  width: 48px;
+  height: 48px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ---------- Responsive tinh chỉnh ---------- */
+@media (max-width: 575.98px) {
+  .section-padding {
+    padding: 56px 0;
+  }
+
+  .hero-slide {
+    min-height: 420px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-avatar {
+    animation: none;
+  }
+}

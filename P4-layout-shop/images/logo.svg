@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Logo CyberShop">
+  <rect x="6" y="14" width="36" height="30" rx="6" fill="#ffffff"/>
+  <path d="M16 16v-4a8 8 0 0 1 16 0v4" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <text x="24" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ff5722" text-anchor="middle">C</text>
+</svg>

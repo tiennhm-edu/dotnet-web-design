@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dự án mẫu Phần 3 - Thiết kế web (HTML, CSS, Bootstrap) khóa .NET Full-stack.">
+  <title>Thiết kế Web - .NET Full-stack</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --text: #1f2330;
+      --muted: #5d6475;
+      --border: #e3e6ef;
+      --accent: #512bd4;
+      --shadow: 0 8px 24px rgba(31, 35, 48, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #12141b;
+        --surface: #1b1e28;
+        --text: #e8eaf2;
+        --muted: #a2a8b8;
+        --border: #2c3040;
+        --accent: #a78bfa;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #12141b;
+      --surface: #1b1e28;
+      --text: #e8eaf2;
+      --muted: #a2a8b8;
+      --border: #2c3040;
+      --accent: #a78bfa;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    header {
+      padding: 56px 0 32px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.2;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+      padding-bottom: 32px;
+    }
+
+    @media (min-width: 720px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      color: inherit;
+      text-decoration: none;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .card:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .thumb {
+      display: grid;
+      place-items: center;
+      height: 110px;
+      border-radius: 10px;
+      font-size: 44px;
+    }
+
+    .t-cafe { background: linear-gradient(135deg, #8d6e63, #3e2723); }
+    .t-shop { background: linear-gradient(135deg, #ff9800, #ff5722); }
+    .t-port { background: linear-gradient(135deg, #8b5cf6, #512bd4); }
+
+    .card h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .meta {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: auto 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .map {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+
+    .map th,
+    .map td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      margin-bottom: 40px;
+    }
+
+    h2.section {
+      font-size: 20px;
+      margin: 8px 0 12px;
+    }
+
+    footer {
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <p class="eyebrow">Khóa .NET Full-stack · Phần 3 · Buổi 14–22</p>
+    <h1>Thiết kế Web: HTML, CSS, Bootstrap</h1>
+    <p class="lead">Ba dự án mẫu xây dựng trong lớp, đi từ HTML thuần tới layout CSS3 hiện đại và portfolio responsive với Bootstrap 5. Mỗi dự án có hướng dẫn từng bước trong README.</p>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+      <a class="card" href="P3-code-cafe/index.html">
+        <div class="thumb t-cafe" aria-hidden="true">☕</div>
+        <p class="meta">P3 · Buổi 14</p>
+        <h2>Code Cafe</h2>
+        <p>Website quán cà phê nhiều trang bằng HTML thuần: heading, danh sách, liên kết, ảnh, bảng giá với colspan/rowspan.</p>
+        <ul class="tags"><li>HTML</li><li>Table</li><li>Link</li></ul>
+      </a>
+      <a class="card" href="P4-layout-shop/index.html">
+        <div class="thumb t-shop" aria-hidden="true">🛍️</div>
+        <p class="meta">P4 · Buổi 15–17</p>
+        <h2>CyberShop</h2>
+        <p>Trang sàn thương mại điện tử: HTML5 semantic, form, Flexbox, Grid, position, animation, responsive mobile-first.</p>
+        <ul class="tags"><li>HTML5</li><li>CSS3</li><li>Flexbox</li><li>Grid</li></ul>
+      </a>
+      <a class="card" href="P5-my-portfolio/index.html">
+        <div class="thumb t-port" aria-hidden="true">👨‍💻</div>
+        <p class="meta">P5 · Buổi 18–22</p>
+        <h2>My Portfolio</h2>
+        <p>Portfolio cá nhân bằng Bootstrap 5.3: navbar, carousel, card, modal, tabs, form validation, dark mode.</p>
+        <ul class="tags"><li>Bootstrap 5</li><li>JavaScript</li><li>Responsive</li></ul>
+      </a>
+    </div>
+
+    <h2 class="section">Lộ trình buổi học</h2>
+    <div class="table-scroll">
+      <table class="map">
+        <thead>
+          <tr><th scope="col">Buổi</th><th scope="col">Bài giáo trình</th><th scope="col">Dự án</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>14</td><td>Bài 3.1 HTML</td><td><a href="P3-code-cafe/index.html">P3 – Code Cafe</a></td></tr>
+          <tr><td>15</td><td>Bài 3.2 Meipaly · Bài 3.3 CSS</td><td><a href="P4-layout-shop/index.html">P4 – CyberShop</a> (CSS external, selector, box model, Flexbox)</td></tr>
+          <tr><td>16</td><td>Bài 3.4 HTML5</td><td>P4 – semantic, form GET/POST, validation</td></tr>
+          <tr><td>17</td><td>Bài 3.5 CSS3</td><td>P4 – Grid, position, transition, @keyframes, media query</td></tr>
+          <tr><td>18–22</td><td>Bài 3.6 Bootstrap</td><td><a href="P5-my-portfolio/index.html">P5 – My Portfolio</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="wrap">
+    <p>Giảng viên: TienNHM · Mã nguồn MIT · Mọi thương hiệu, nhân vật và dữ liệu trong dự án đều là giả định phục vụ học tập.</p>
+  </footer>
+</body>
+</html>

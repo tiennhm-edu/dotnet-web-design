@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trang kết quả tìm kiếm mẫu: minh họa form GET.">
+  <title>CyberShop - Kết quả tìm kiếm</title>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container">
+      <div class="topbar">
+        <ul>
+          <li><a href="#">Kênh người bán</a></li>
+          <li><a href="#">Tải ứng dụng</a></li>
+          <li><a href="#">Kết nối</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">🔔 Thông báo</a></li>
+          <li><a href="#">❓ Hỗ trợ</a></li>
+          <li><a href="register.html">Đăng ký</a></li>
+          <li><a href="#">Đăng nhập</a></li>
+        </ul>
+      </div>
+
+      <div class="header-main">
+        <a class="logo" href="index.html">
+          <img src="images/logo.svg" alt="" width="36" height="36">
+          <span>CyberShop</span>
+        </a>
+
+        <!-- Form tìm kiếm: method GET → dữ liệu nằm trên URL (search.html?q=...) -->
+        <form class="search-form" action="search.html" method="get" role="search">
+          <label for="q" class="sr-only">Tìm sản phẩm</label>
+          <input id="q" name="q" type="search" placeholder="Tìm trong CyberShop..." required minlength="2" autocomplete="off">
+          <button class="btn btn-primary" type="submit"><span aria-hidden="true">🔍</span><span class="sr-only">Tìm kiếm</span></button>
+        </form>
+
+        <div class="header-actions">
+          <a class="cart" href="#" aria-label="Giỏ hàng: 3 sản phẩm">
+            <span aria-hidden="true">🛒</span>
+            <span class="cart-count">3</span>
+          </a>
+        </div>
+      </div>
+
+      <ul class="search-hints">
+        <li><a href="search.html?q=tai+nghe">Tai nghe</a></li>
+        <li><a href="search.html?q=b%C3%A0n+ph%C3%ADm">Bàn phím</a></li>
+        <li><a href="search.html?q=balo">Balo</a></li>
+        <li><a href="search.html?q=%C3%A1o+thun">Áo thun</a></li>
+        <li><a href="search.html?q=s%C3%A1ch">Sách lập trình</a></li>
+      </ul>
+    </div>
+
+    <!-- ================= NAV DANH MỤC ================= -->
+    <nav class="category-nav" aria-label="Danh mục sản phẩm">
+      <div class="container">
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="index.html#flash-sale">Flash Sale</a></li>
+          <li><a href="index.html#goi-y">Gợi ý hôm nay</a></li>
+          <li><a href="search.html?q=th%E1%BB%9Di+trang">Thời trang</a></li>
+          <li><a href="search.html?q=%C4%91i%E1%BB%87n+t%E1%BB%AD">Điện tử</a></li>
+          <li><a href="search.html?q=nh%C3%A0+c%E1%BB%ADa">Nhà cửa</a></li>
+          <li><a href="search.html?q=s%C3%A1ch">Sách</a></li>
+          <li><a href="register.html">Đăng ký thành viên</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="container">
+    <section class="section" aria-labelledby="result-title">
+      <div class="section-header">
+        <h1 id="result-title" class="page-title">Kết quả tìm kiếm cho “<span id="keyword">…</span>”</h1>
+        <a href="index.html">&lsaquo; Về trang chủ</a>
+      </div>
+
+      <div class="note">
+        <p><strong>Form GET hoạt động thế nào?</strong> Khi bấm 🔍, trình duyệt gửi dữ liệu form lên <strong>URL</strong>:
+          <code>search.html?q=tai+nghe</code>. Hãy nhìn thanh địa chỉ! Dữ liệu GET dễ chia sẻ, bookmark được
+          – phù hợp cho tìm kiếm, lọc. Không dùng GET cho mật khẩu.</p>
+        <p>Trang tĩnh không có máy chủ nên kết quả bên dưới là <em>dữ liệu mẫu</em>. Ở phần ASP.NET Core,
+          bạn sẽ đọc tham số <code>q</code> phía server và truy vấn cơ sở dữ liệu thật.</p>
+      </div>
+
+      <form class="search-form result-sort" action="search.html" method="get">
+        <label for="q2" class="sr-only">Từ khóa</label>
+        <input id="q2" name="q" type="search" placeholder="Nhập từ khóa khác..." required minlength="2">
+        <label for="sort" class="sr-only">Sắp xếp</label>
+        <select id="sort" name="sort">
+          <option value="relevant">Liên quan</option>
+          <option value="newest">Mới nhất</option>
+          <option value="price-asc">Giá: thấp → cao</option>
+          <option value="price-desc">Giá: cao → thấp</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Tìm</button>
+      </form>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <span class="badge">50%<small>Giảm</small></span>
+          <a href="search.html?q=Tai">
+            <figure>
+              <div class="product-thumb thumb-blue" role="img" aria-label="Tai nghe Bluetooth chống ồn CyberSound X1">🎧</div>
+              <figcaption>
+                <h3 class="product-name">Tai nghe Bluetooth chống ồn CyberSound X1</h3>
+                <p class="price"><span class="sr-only">Giá: </span>₫299.000 <del><span class="sr-only">Giá gốc: </span>₫599.000</del></p>
+                <div class="progress"><span style="width: 82%;"></span><b>Đã bán 82%</b></div>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="product-card">
+          <span class="badge">48%<small>Giảm</small></span>
+          <a href="search.html?q=%C4%90%E1%BB%93ng">
+            <figure>
+              <div class="product-thumb thumb-gray" role="img" aria-label="Đồng hồ thông minh theo dõi sức khỏe">⌚</div>
+              <figcaption>
+                <h3 class="product-name">Đồng hồ thông minh theo dõi sức khỏe</h3>
+                <p class="price"><span class="sr-only">Giá: </span>₫459.000 <del><span class="sr-only">Giá gốc: </span>₫890.000</del></p>
+                <div class="progress"><span style="width: 64%;"></span><b>Đã bán 64%</b></div>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="product-card">
+          <span class="badge">46%<small>Giảm</small></span>
+          <a href="search.html?q=Gi%C3%A0y">
+            <figure>
+              <div class="product-thumb thumb-orange" role="img" aria-label="Giày thể thao nam nữ đế êm">👟</div>
+              <figcaption>
+                <h3 class="product-name">Giày thể thao nam nữ đế êm</h3>
+                <p class="price"><span class="sr-only">Giá: </span>₫189.000 <del><span class="sr-only">Giá gốc: </span>₫350.000</del></p>
+                <div class="progress"><span style="width: 91%;"></span><b>Sắp cháy hàng</b></div>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="product-card">
+          <span class="badge">50%<small>Giảm</small></span>
+          <a href="search.html?q=Balo">
+            <figure>
+              <div class="product-thumb thumb-green" role="img" aria-label="Balo laptop 15.6 inch chống nước">🎒</div>
+              <figcaption>
+                <h3 class="product-name">Balo laptop 15.6 inch chống nước</h3>
+                <p class="price"><span class="sr-only">Giá: </span>₫159.000 <del><span class="sr-only">Giá gốc: </span>₫320.000</del></p>
+                <div class="progress"><span style="width: 37%;"></span><b>Đang bán chạy</b></div>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="product-card">
+          <span class="badge">31%<small>Giảm</small></span>
+          <a href="search.html?q=B%C3%A0n">
+            <figure>
+              <div class="product-thumb thumb-purple" role="img" aria-label="Bàn phím cơ không dây 87 phím">⌨️</div>
+              <figcaption>
+                <h3 class="product-name">Bàn phím cơ không dây 87 phím</h3>
+                <p class="price"><span class="sr-only">Giá: </span>₫549.000 <del><span class="sr-only">Giá gốc: </span>₫790.000</del></p>
+                <div class="progress"><span style="width: 55%;"></span><b>Đã bán 55%</b></div>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="product-card">
+          <span class="badge">50%<small>Giảm</small></span>
+          <a href="search.html?q=Chu%E1%BB%99t">
+            <figure>
+              <div class="product-thumb thumb-pink" role="img" aria-label="Chuột không dây yên tĩnh">🖱️</div>
+              <figcaption>
+                <h3 class="product-name">Chuột không dây yên tĩnh</h3>
+                <p class="price"><span class="sr-only">Giá: </span>₫99.000 <del><span class="sr-only">Giá gốc: </span>₫199.000</del></p>
+                <div class="progress"><span style="width: 70%;"></span><b>Đã bán 70%</b></div>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="product-card">
+            <span class="tag-mall">Yêu thích</span>
+            <a href="search.html?q=%C3%81o">
+              <figure>
+                <div class="product-thumb thumb-blue" role="img" aria-label="Áo thun cotton unisex form rộng in chữ “Hello World”">👕</div>
+                <figcaption>
+                  <h3 class="product-name">Áo thun cotton unisex form rộng in chữ “Hello World”</h3>
+                  <div class="product-meta">
+                    <p class="price"><span class="sr-only">Giá: </span>₫129.000</p>
+                    <span class="sold">Đã bán 3,2k</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </a>
+          </article>
+        <article class="product-card">
+            <span class="badge">41%<small>Giảm</small></span>
+            <a href="search.html?q=Ly">
+              <figure>
+                <div class="product-thumb thumb-orange" role="img" aria-label="Ly giữ nhiệt inox 500ml cho dân văn phòng">☕</div>
+                <figcaption>
+                  <h3 class="product-name">Ly giữ nhiệt inox 500ml cho dân văn phòng</h3>
+                  <div class="product-meta">
+                    <p class="price"><span class="sr-only">Giá: </span>₫89.000 <del><span class="sr-only">Giá gốc: </span>₫150.000</del></p>
+                    <span class="sold">Đã bán 1,1k</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </a>
+          </article>
+        <article class="product-card">
+            <span class="tag-mall">Yêu thích</span>
+            <span class="badge">14%<small>Giảm</small></span>
+            <a href="search.html?q=S%C3%A1ch">
+              <figure>
+                <div class="product-thumb thumb-green" role="img" aria-label="Sách Lập trình C# từ cơ bản đến nâng cao">📚</div>
+                <figcaption>
+                  <h3 class="product-name">Sách Lập trình C# từ cơ bản đến nâng cao</h3>
+                  <div class="product-meta">
+                    <p class="price"><span class="sr-only">Giá: </span>₫215.000 <del><span class="sr-only">Giá gốc: </span>₫250.000</del></p>
+                    <span class="sold">Đã bán 870</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </a>
+          </article>
+        <article class="product-card">
+            <a href="search.html?q=%C4%90%C3%A8n">
+              <figure>
+                <div class="product-thumb thumb-gray" role="img" aria-label="Đèn bàn LED chống cận 3 chế độ sáng">💡</div>
+                <figcaption>
+                  <h3 class="product-name">Đèn bàn LED chống cận 3 chế độ sáng</h3>
+                  <div class="product-meta">
+                    <p class="price"><span class="sr-only">Giá: </span>₫175.000</p>
+                    <span class="sold">Đã bán 2,4k</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </a>
+          </article>
+        <article class="product-card">
+            <span class="badge">25%<small>Giảm</small></span>
+            <a href="search.html?q=Ch%E1%BA%ADu">
+              <figure>
+                <div class="product-thumb thumb-green" role="img" aria-label="Chậu cây mini để bàn làm việc">🪴</div>
+                <figcaption>
+                  <h3 class="product-name">Chậu cây mini để bàn làm việc</h3>
+                  <div class="product-meta">
+                    <p class="price"><span class="sr-only">Giá: </span>₫45.000 <del><span class="sr-only">Giá gốc: </span>₫60.000</del></p>
+                    <span class="sold">Đã bán 5,6k</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </a>
+          </article>
+        <article class="product-card">
+            <span class="tag-mall">Yêu thích</span>
+            <span class="badge">24%<small>Giảm</small></span>
+            <a href="search.html?q=B%E1%BB%99">
+              <figure>
+                <div class="product-thumb thumb-pink" role="img" aria-label="Bộ chăm sóc da cơ bản 3 bước">🧴</div>
+                <figcaption>
+                  <h3 class="product-name">Bộ chăm sóc da cơ bản 3 bước</h3>
+                  <div class="product-meta">
+                    <p class="price"><span class="sr-only">Giá: </span>₫320.000 <del><span class="sr-only">Giá gốc: </span>₫420.000</del></p>
+                    <span class="sold">Đã bán 980</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </a>
+          </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Xem trước JavaScript (sẽ học kỹ ở P5): đọc tham số ?q= trên URL và hiển thị.
+    const keyword = new URLSearchParams(window.location.search).get('q');
+    document.getElementById('keyword').textContent = keyword || 'tất cả sản phẩm';
+  </script>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <section>
+          <h2>Chăm sóc khách hàng</h2>
+          <ul>
+            <li><a href="#">Trung tâm trợ giúp</a></li>
+            <li><a href="#">Hướng dẫn mua hàng</a></li>
+            <li><a href="#">Chính sách đổi trả</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Về CyberShop</h2>
+          <ul>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="register.html">Đăng ký thành viên</a></li>
+            <li><a href="css-lab.html">Góc học tập CSS</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Thanh toán</h2>
+          <ul class="payment-list">
+            <li>Visa</li>
+            <li>Master</li>
+            <li>COD</li>
+            <li>Ví điện tử</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Liên hệ</h2>
+          <address>
+            <ul>
+              <li>📧 <a href="mailto:support@cybershop.example">support@cybershop.example</a></li>
+              <li>📞 <a href="tel:+84900000000">0900&nbsp;000&nbsp;000</a></li>
+            </ul>
+          </address>
+        </section>
+      </div>
+      <p class="copyright">&copy; 2026 CyberShop – Dự án học tập (thương hiệu giả định). Không phải website thương mại thật.</p>
+    </div>
+  </footer>
+</body>
+</html>

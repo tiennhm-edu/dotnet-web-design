@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio của Nguyễn Văn A - .NET Developer (nhân vật giả định, dự án học tập Bootstrap 5).">
+  <title>Nguyễn Văn A - .NET Developer Portfolio</title>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Áp dụng theme đã lưu TRƯỚC khi trang vẽ để tránh "nháy" màu -->
+  <script>
+    (function () {
+      let theme = null;
+      try {
+        theme = localStorage.getItem('portfolio-theme');
+      } catch (e) {
+        theme = null; // localStorage có thể bị chặn (chế độ ẩn danh, cài đặt trình duyệt)
+      }
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    })();
+  </script>
+
+  <!-- Bootstrap 5.3.3 CSS (CDN jsDelivr, ghim phiên bản chính xác) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- CSS riêng: đặt SAU Bootstrap để ghi đè -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="80" tabindex="0">
+
+  <a class="visually-hidden-focusable position-absolute top-0 start-0 m-2 btn btn-primary" href="#main">Bỏ qua tới nội dung chính</a>
+
+  <!-- ================= NAVBAR (collapse) ================= -->
+  <nav id="mainNav" class="navbar navbar-expand-lg bg-body-tertiary fixed-top shadow-sm" aria-label="Điều hướng chính">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#home">
+        <span class="brand-mark">NA</span>
+        <span>Nguyễn Văn A</span>
+      </a>
+      <div class="d-flex align-items-center gap-2 order-lg-last">
+        <button id="themeToggle" class="btn btn-outline-secondary btn-sm" type="button" aria-label="Chuyển chế độ sáng/tối">
+          <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+        </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+          aria-controls="navMenu" aria-expanded="false" aria-label="Mở menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto me-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#home">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Giới thiệu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Dự án</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Dịch vụ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#journey">Hành trình</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Liên hệ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- ================= HERO / CAROUSEL ================= -->
+    <section id="home" class="hero">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active hero-slide hero-slide-1">
+            <div class="container h-100 d-flex align-items-center">
+              <div class="row align-items-center w-100 g-4">
+                <div class="col-12 col-md-7 text-white">
+                  <p class="text-uppercase fw-semibold mb-2 opacity-75">Xin chào, mình là</p>
+                  <h1 class="display-4 fw-bold">Nguyễn Văn A</h1>
+                  <p class="lead">.NET Full-stack Developer – xây dựng Web API, ứng dụng Blazor và giao diện web responsive.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a class="btn btn-light btn-lg" href="#projects"><i class="bi bi-grid-3x3-gap-fill me-1" aria-hidden="true"></i> Xem dự án</a>
+                    <a class="btn btn-outline-light btn-lg" href="#contact">Liên hệ</a>
+                  </div>
+                </div>
+                <div class="col-md-5 d-none d-md-block text-center">
+                  <img class="hero-avatar img-fluid" src="images/avatar.svg" alt="Ảnh đại diện minh họa" width="280" height="280">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item hero-slide hero-slide-2">
+            <div class="container h-100 d-flex align-items-center">
+              <div class="text-white col-lg-8">
+                <p class="text-uppercase fw-semibold mb-2 opacity-75">Backend</p>
+                <h2 class="display-5 fw-bold">ASP.NET Core &amp; Entity Framework</h2>
+                <p class="lead">Thiết kế RESTful API sạch, bảo mật JWT, tối ưu truy vấn SQL Server.</p>
+                <a class="btn btn-light btn-lg" href="#projects">Dự án Web API</a>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item hero-slide hero-slide-3">
+            <div class="container h-100 d-flex align-items-center">
+              <div class="text-white col-lg-8">
+                <p class="text-uppercase fw-semibold mb-2 opacity-75">Frontend</p>
+                <h2 class="display-5 fw-bold">HTML5, CSS3, Bootstrap &amp; Blazor</h2>
+                <p class="lead">Giao diện responsive trên mọi thiết bị, từ điện thoại tới màn hình 4K.</p>
+                <a class="btn btn-light btn-lg" href="#services">Xem dịch vụ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Slide trước</span>
+        </button>
+        <button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Slide sau</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT: grid 12 cột ================= -->
+    <section id="about" class="section-padding">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-12 col-lg-5">
+            <h2 class="section-title">Giới thiệu</h2>
+            <p class="lead">Mình là lập trình viên .NET với niềm yêu thích xây dựng sản phẩm web hoàn chỉnh – từ cơ sở dữ liệu tới giao diện.</p>
+            <p class="text-body-secondary">Mình bắt đầu học lập trình với C# cơ bản, sau đó đi qua OOP, SQL Server, ASP.NET Core Web API và Blazor.
+              Mình tin rằng code tốt là code <strong>dễ đọc</strong>, <strong>dễ kiểm thử</strong> và <strong>dễ bảo trì</strong>.</p>
+            <ul class="list-unstyled d-grid gap-2 mb-4">
+              <li><i class="bi bi-geo-alt-fill text-primary me-2" aria-hidden="true"></i>TP. Hồ Chí Minh, Việt Nam</li>
+              <li><i class="bi bi-envelope-fill text-primary me-2" aria-hidden="true"></i><a href="mailto:nguyenvana@example.com">nguyenvana@example.com</a></li>
+              <li><i class="bi bi-briefcase-fill text-primary me-2" aria-hidden="true"></i>Sẵn sàng nhận việc full-time</li>
+            </ul>
+            <!-- Modal: mở CV tóm tắt -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cvModal">
+              <i class="bi bi-file-earmark-person me-1" aria-hidden="true"></i> Xem CV tóm tắt
+            </button>
+          </div>
+
+          <div class="col-12 col-lg-7">
+            <!-- Tabs: Kỹ năng theo nhóm -->
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4">
+                <ul class="nav nav-tabs mb-3" id="skillTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="backend-tab" data-bs-toggle="tab" data-bs-target="#backend-pane" type="button" role="tab" aria-controls="backend-pane" aria-selected="true">Backend</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="frontend-tab" data-bs-toggle="tab" data-bs-target="#frontend-pane" type="button" role="tab" aria-controls="frontend-pane" aria-selected="false">Frontend</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tools-tab" data-bs-toggle="tab" data-bs-target="#tools-pane" type="button" role="tab" aria-controls="tools-pane" aria-selected="false">Công cụ</button>
+                  </li>
+                </ul>
+                <div class="tab-content" id="skillTabsContent">
+                  <div class="tab-pane fade show active" id="backend-pane" role="tabpanel" aria-labelledby="backend-tab" tabindex="0">
+                    <div class="skill">
+                      <div class="d-flex justify-content-between"><span>C# / .NET 8</span><span>90%</span></div>
+                      <div class="progress" role="progressbar" aria-label="C# / .NET 8" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill">
+                      <div class="d-flex justify-content-between"><span>ASP.NET Core Web API</span><span>85%</span></div>
+                      <div class="progress" role="progressbar" aria-label="ASP.NET Core Web API" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill">
+                      <div class="d-flex justify-content-between"><span>Entity Framework Core &amp; SQL Server</span><span>80%</span></div>
+                      <div class="progress" role="progressbar" aria-label="Entity Framework Core và SQL Server" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 80%"></div></div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="frontend-pane" role="tabpanel" aria-labelledby="frontend-tab" tabindex="0">
+                    <div class="skill">
+                      <div class="d-flex justify-content-between"><span>HTML5 / CSS3</span><span>90%</span></div>
+                      <div class="progress" role="progressbar" aria-label="HTML5 / CSS3" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar bg-success" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill">
+                      <div class="d-flex justify-content-between"><span>Bootstrap 5</span><span>85%</span></div>
+                      <div class="progress" role="progressbar" aria-label="Bootstrap 5" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar bg-success" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill">
+                      <div class="d-flex justify-content-between"><span>Blazor</span><span>75%</span></div>
+                      <div class="progress" role="progressbar" aria-label="Blazor" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar bg-success" style="width: 75%"></div></div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="tools-pane" role="tabpanel" aria-labelledby="tools-tab" tabindex="0">
+                    <div class="d-flex flex-wrap gap-2">
+                      <span class="badge rounded-pill text-bg-primary fs-6">Git &amp; GitHub</span>
+                      <span class="badge rounded-pill text-bg-secondary fs-6">Visual Studio</span>
+                      <span class="badge rounded-pill text-bg-info fs-6">VS Code</span>
+                      <span class="badge rounded-pill text-bg-warning fs-6">Postman</span>
+                      <span class="badge rounded-pill text-bg-success fs-6">Docker</span>
+                      <span class="badge rounded-pill text-bg-danger fs-6">SQL Server Management Studio</span>
+                      <span class="badge rounded-pill text-bg-dark fs-6">Azure</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Số liệu: grid lồng nhau, mỗi breakpoint số cột khác nhau -->
+            <div class="row row-cols-2 row-cols-md-4 g-3 mt-1 text-center">
+              <div class="col"><div class="stat p-3 rounded-3 bg-body-tertiary"><strong class="d-block fs-3 text-primary">2+</strong><small>Năm kinh nghiệm</small></div></div>
+              <div class="col"><div class="stat p-3 rounded-3 bg-body-tertiary"><strong class="d-block fs-3 text-primary">15</strong><small>Dự án</small></div></div>
+              <div class="col"><div class="stat p-3 rounded-3 bg-body-tertiary"><strong class="d-block fs-3 text-primary">8</strong><small>Khách hàng</small></div></div>
+              <div class="col"><div class="stat p-3 rounded-3 bg-body-tertiary"><strong class="d-block fs-3 text-primary">3</strong><small>Giải thưởng</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS: pills + card grid + modal ================= -->
+    <section id="projects" class="section-padding bg-body-tertiary">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Dự án nổi bật</h2>
+          <p class="text-body-secondary">Bấm vào từng nhóm để lọc, bấm “Chi tiết” để xem mô tả.</p>
+        </div>
+
+        <ul class="nav nav-pills justify-content-center mb-4 gap-2" id="projectPills" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="api-tab" data-bs-toggle="pill" data-bs-target="#api-pane" type="button" role="tab" aria-controls="api-pane" aria-selected="true">Web API</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="blazor-tab" data-bs-toggle="pill" data-bs-target="#blazor-pane" type="button" role="tab" aria-controls="blazor-pane" aria-selected="false">Blazor / MVC</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="web-tab" data-bs-toggle="pill" data-bs-target="#web-pane" type="button" role="tab" aria-controls="web-pane" aria-selected="false">Giao diện web</button>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <!-- Pane 1 -->
+          <div class="tab-pane fade show active" id="api-pane" role="tabpanel" aria-labelledby="api-tab" tabindex="0">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-1" aria-hidden="true"><i class="bi bi-cart-check"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">eShop API</h3>
+                    <p class="card-text text-body-secondary">REST API bán hàng: sản phẩm, giỏ hàng, đơn hàng, phân quyền JWT.</p>
+                    <div class="d-flex flex-wrap gap-1">
+                      <span class="badge text-bg-primary">ASP.NET Core</span><span class="badge text-bg-secondary">EF Core</span><span class="badge text-bg-info">JWT</span>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal"
+                      data-title="eShop API" data-tech="ASP.NET Core 8 · EF Core · SQL Server · JWT · Swagger"
+                      data-desc="Hệ thống API cho cửa hàng trực tuyến với 30+ endpoint, phân trang, lọc, xác thực JWT, phân quyền Admin/Customer và tài liệu Swagger.">Chi tiết</button>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-2" aria-hidden="true"><i class="bi bi-calendar2-check"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">Booking API</h3>
+                    <p class="card-text text-body-secondary">Đặt lịch phòng họp, kiểm tra trùng lịch, gửi email xác nhận.</p>
+                    <div class="d-flex flex-wrap gap-1">
+                      <span class="badge text-bg-primary">ASP.NET Core</span><span class="badge text-bg-warning">Dapper</span>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal"
+                      data-title="Booking API" data-tech="ASP.NET Core 8 · Dapper · SQL Server · Background Service"
+                      data-desc="API đặt lịch phòng họp, xử lý xung đột thời gian bằng truy vấn SQL, gửi email nhắc lịch qua background service.">Chi tiết</button>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-3" aria-hidden="true"><i class="bi bi-chat-dots"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">Realtime Chat</h3>
+                    <p class="card-text text-body-secondary">Ứng dụng chat thời gian thực với nhóm, trạng thái online.</p>
+                    <div class="d-flex flex-wrap gap-1">
+                      <span class="badge text-bg-primary">SignalR</span><span class="badge text-bg-success">Redis</span>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal"
+                      data-title="Realtime Chat" data-tech="ASP.NET Core SignalR · Redis backplane"
+                      data-desc="Chat nhóm thời gian thực, hiển thị ai đang gõ phím, lưu lịch sử tin nhắn và hỗ trợ nhiều server nhờ Redis.">Chi tiết</button>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pane 2 -->
+          <div class="tab-pane fade" id="blazor-pane" role="tabpanel" aria-labelledby="blazor-tab" tabindex="0">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-4" aria-hidden="true"><i class="bi bi-kanban"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">Task Board</h3>
+                    <p class="card-text text-body-secondary">Bảng Kanban quản lý công việc nhóm viết bằng Blazor WebAssembly.</p>
+                    <div class="d-flex flex-wrap gap-1"><span class="badge text-bg-primary">Blazor WASM</span><span class="badge text-bg-secondary">Web API</span></div>
+                  </div>
+                  <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal"
+                      data-title="Task Board" data-tech="Blazor WebAssembly · ASP.NET Core Web API · Bootstrap 5"
+                      data-desc="Kéo thả thẻ công việc giữa các cột, phân công thành viên, lọc theo nhãn và hạn chót.">Chi tiết</button>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-5" aria-hidden="true"><i class="bi bi-mortarboard"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">Student Manager</h3>
+                    <p class="card-text text-body-secondary">Quản lý sinh viên, lớp học, điểm số với ASP.NET Core MVC.</p>
+                    <div class="d-flex flex-wrap gap-1"><span class="badge text-bg-primary">MVC</span><span class="badge text-bg-secondary">EF Core</span></div>
+                  </div>
+                  <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal"
+                      data-title="Student Manager" data-tech="ASP.NET Core MVC · EF Core · Identity"
+                      data-desc="CRUD sinh viên/lớp/điểm, xuất báo cáo Excel, đăng nhập bằng ASP.NET Core Identity.">Chi tiết</button>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pane 3 -->
+          <div class="tab-pane fade" id="web-pane" role="tabpanel" aria-labelledby="web-tab" tabindex="0">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-6" aria-hidden="true"><i class="bi bi-cup-hot"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">Code Cafe</h3>
+                    <p class="card-text text-body-secondary">Website quán cà phê bằng HTML thuần.</p>
+                    <a class="stretched-link" href="../P3-code-cafe/index.html"><span class="visually-hidden">Mở dự án Code Cafe</span></a>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card h-100 project-card border-0 shadow-sm">
+                  <div class="project-thumb thumb-1" aria-hidden="true"><i class="bi bi-bag-heart"></i></div>
+                  <div class="card-body">
+                    <h3 class="card-title h5">CyberShop</h3>
+                    <p class="card-text text-body-secondary">Trang bán hàng responsive: HTML5 semantic, Flexbox, Grid.</p>
+                    <a class="stretched-link" href="../P4-layout-shop/index.html"><span class="visually-hidden">Mở dự án CyberShop</span></a>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES / FEATURE ================= -->
+    <section id="services" class="section-padding">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Mình có thể giúp gì?</h2>
+          <p class="text-body-secondary">Các dịch vụ chính – lưới 1 cột (mobile) → 2 cột (md) → 4 cột (xl).</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="feature h-100 p-4 rounded-4 border">
+              <div class="feature-icon bg-primary bg-gradient"><i class="bi bi-hdd-network" aria-hidden="true"></i></div>
+              <h3 class="h5">Xây dựng Web API</h3>
+              <p class="text-body-secondary mb-0">RESTful API chuẩn, có tài liệu Swagger và kiểm thử.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="feature h-100 p-4 rounded-4 border">
+              <div class="feature-icon bg-success bg-gradient"><i class="bi bi-phone" aria-hidden="true"></i></div>
+              <h3 class="h5">Giao diện responsive</h3>
+              <p class="text-body-secondary mb-0">HTML5, CSS3, Bootstrap 5 – hiển thị đẹp trên mọi thiết bị.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="feature h-100 p-4 rounded-4 border">
+              <div class="feature-icon bg-warning bg-gradient"><i class="bi bi-database-gear" aria-hidden="true"></i></div>
+              <h3 class="h5">Thiết kế CSDL</h3>
+              <p class="text-body-secondary mb-0">Mô hình hóa dữ liệu, tối ưu chỉ mục và truy vấn SQL Server.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="feature h-100 p-4 rounded-4 border">
+              <div class="feature-icon bg-danger bg-gradient"><i class="bi bi-cloud-upload" aria-hidden="true"></i></div>
+              <h3 class="h5">Triển khai</h3>
+              <p class="text-body-secondary mb-0">Docker, CI/CD với GitHub Actions, deploy lên cloud.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOURNEY: tabs + timeline + awards ================= -->
+    <section id="journey" class="section-padding bg-body-tertiary">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Hành trình &amp; Giải thưởng</h2>
+        </div>
+        <div class="row g-5">
+          <div class="col-12 col-lg-7">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="work-tab" data-bs-toggle="tab" data-bs-target="#work-pane" type="button" role="tab" aria-controls="work-pane" aria-selected="true"><i class="bi bi-briefcase me-1" aria-hidden="true"></i>Kinh nghiệm</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="edu-tab" data-bs-toggle="tab" data-bs-target="#edu-pane" type="button" role="tab" aria-controls="edu-pane" aria-selected="false"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i>Học tập</button>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="work-pane" role="tabpanel" aria-labelledby="work-tab" tabindex="0">
+                <ol class="timeline">
+                  <li class="timeline-item">
+                    <span class="timeline-date">2025 – nay</span>
+                    <h3 class="h6 mb-1">.NET Developer – Công ty Phần mềm ABC (giả định)</h3>
+                    <p class="text-body-secondary mb-0">Phát triển Web API cho hệ thống quản lý bán hàng, review code cho thành viên mới.</p>
+                  </li>
+                  <li class="timeline-item">
+                    <span class="timeline-date">2024 – 2025</span>
+                    <h3 class="h6 mb-1">Junior Developer – Startup XYZ (giả định)</h3>
+                    <p class="text-body-secondary mb-0">Xây dựng trang quản trị bằng Blazor Server, tích hợp thanh toán.</p>
+                  </li>
+                  <li class="timeline-item">
+                    <span class="timeline-date">2024</span>
+                    <h3 class="h6 mb-1">Thực tập sinh .NET</h3>
+                    <p class="text-body-secondary mb-0">Viết unit test, sửa lỗi, học quy trình Scrum.</p>
+                  </li>
+                </ol>
+              </div>
+              <div class="tab-pane fade" id="edu-pane" role="tabpanel" aria-labelledby="edu-tab" tabindex="0">
+                <ol class="timeline">
+                  <li class="timeline-item">
+                    <span class="timeline-date">2023 – 2024</span>
+                    <h3 class="h6 mb-1">Khóa học .NET Full-stack</h3>
+                    <p class="text-body-secondary mb-0">C#, OOP, SQL Server, HTML/CSS/Bootstrap, ASP.NET Core, Blazor.</p>
+                  </li>
+                  <li class="timeline-item">
+                    <span class="timeline-date">2019 – 2023</span>
+                    <h3 class="h6 mb-1">Cử nhân Công nghệ Thông tin</h3>
+                    <p class="text-body-secondary mb-0">Đồ án tốt nghiệp: hệ thống đặt lịch khám bệnh trực tuyến.</p>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-5">
+            <h3 class="h5 mb-3"><i class="bi bi-trophy-fill text-warning me-1" aria-hidden="true"></i> Giải thưởng</h3>
+            <div class="d-grid gap-3">
+              <div class="award card border-0 shadow-sm">
+                <div class="card-body d-flex gap-3 align-items-start">
+                  <span class="award-icon text-bg-warning"><i class="bi bi-award-fill" aria-hidden="true"></i></span>
+                  <div>
+                    <h4 class="h6 mb-1">Giải Nhất Hackathon nội bộ 2025</h4>
+                    <p class="small text-body-secondary mb-0">Ứng dụng quản lý kho dùng Blazor + SignalR.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="award card border-0 shadow-sm">
+                <div class="card-body d-flex gap-3 align-items-start">
+                  <span class="award-icon text-bg-info"><i class="bi bi-patch-check-fill" aria-hidden="true"></i></span>
+                  <div>
+                    <h4 class="h6 mb-1">Chứng chỉ Azure Fundamentals (minh họa)</h4>
+                    <p class="small text-body-secondary mb-0">Kiến thức nền tảng về điện toán đám mây.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="award card border-0 shadow-sm">
+                <div class="card-body d-flex gap-3 align-items-start">
+                  <span class="award-icon text-bg-success"><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+                  <div>
+                    <h4 class="h6 mb-1">Học viên xuất sắc khóa .NET Full-stack</h4>
+                    <p class="small text-body-secondary mb-0">Dự án cuối khóa đạt điểm cao nhất lớp.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT FORM ================= -->
+    <section id="contact" class="section-padding">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-8 col-xxl-6">
+            <div class="text-center mb-4">
+              <h2 class="section-title">Liên hệ</h2>
+              <p class="text-body-secondary">Có dự án hoặc cơ hội việc làm? Gửi lời nhắn cho mình nhé!</p>
+            </div>
+
+            <!-- Thông báo kết quả (JS sẽ hiện/ẩn) -->
+            <div id="formAlert" class="alert d-none" role="alert" aria-live="polite"></div>
+
+            <form id="contactForm" class="card card-body border-0 shadow-sm p-4" novalidate>
+              <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                  <label for="contactName" class="form-label">Họ tên <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="contactName" name="name" required minlength="2" autocomplete="name">
+                  <div class="invalid-feedback">Vui lòng nhập họ tên (ít nhất 2 ký tự).</div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for="contactEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="contactEmail" name="email" required autocomplete="email" placeholder="ban@example.com">
+                  <div class="invalid-feedback">Email chưa đúng định dạng.</div>
+                </div>
+                <div class="col-12">
+                  <label for="contactTopic" class="form-label">Chủ đề <span class="text-danger">*</span></label>
+                  <select class="form-select" id="contactTopic" name="topic" required>
+                    <option value="" selected disabled>-- Chọn chủ đề --</option>
+                    <option value="job">Cơ hội việc làm</option>
+                    <option value="freelance">Dự án freelance</option>
+                    <option value="other">Khác</option>
+                  </select>
+                  <div class="invalid-feedback">Vui lòng chọn chủ đề.</div>
+                </div>
+                <div class="col-12">
+                  <label for="contactMessage" class="form-label">Nội dung <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="contactMessage" name="message" rows="4" required minlength="10" maxlength="500"></textarea>
+                  <div class="invalid-feedback">Nội dung tối thiểu 10 ký tự.</div>
+                  <div class="form-text"><span id="charCount">0</span>/500 ký tự</div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="contactAgree" required>
+                    <label class="form-check-label" for="contactAgree">Tôi đồng ý cho phép liên hệ lại qua email</label>
+                    <div class="invalid-feedback">Bạn cần đồng ý trước khi gửi.</div>
+                  </div>
+                </div>
+                <div class="col-12 d-grid d-sm-flex justify-content-sm-end gap-2">
+                  <button type="reset" class="btn btn-outline-secondary">Xóa</button>
+                  <button type="submit" class="btn btn-primary px-4"><i class="bi bi-send me-1" aria-hidden="true"></i> Gửi lời nhắn</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="py-4 bg-dark text-white-50" data-bs-theme="dark">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <p class="mb-0">&copy; <span id="year">2026</span> Nguyễn Văn A (nhân vật giả định) · Dự án học tập Bootstrap 5</p>
+      <ul class="list-inline mb-0 fs-5">
+        <li class="list-inline-item"><a class="link-light" href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a></li>
+        <li class="list-inline-item"><a class="link-light" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a></li>
+        <li class="list-inline-item"><a class="link-light" href="mailto:nguyenvana@example.com" aria-label="Email"><i class="bi bi-envelope-fill" aria-hidden="true"></i></a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Nút lên đầu trang -->
+  <button id="backToTop" class="btn btn-primary rounded-circle shadow back-to-top" type="button" aria-label="Lên đầu trang">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ================= MODAL: chi tiết dự án (1 modal dùng chung) ================= -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="projectModalLabel">Chi tiết dự án</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body">
+          <p id="projectModalDesc" class="mb-3"></p>
+          <p class="mb-0"><strong>Công nghệ:</strong> <span id="projectModalTech"></span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CV tóm tắt ================= -->
+  <div class="modal fade" id="cvModal" tabindex="-1" aria-labelledby="cvModalLabel">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="cvModalLabel">CV tóm tắt – Nguyễn Văn A</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-md-4 text-center">
+              <img src="images/avatar.svg" class="img-fluid rounded-circle mb-2" alt="Ảnh đại diện minh họa" width="160" height="160">
+              <p class="fw-semibold mb-0">.NET Full-stack Developer</p>
+            </div>
+            <div class="col-md-8">
+              <h3 class="h6 text-primary">Mục tiêu nghề nghiệp</h3>
+              <p>Trở thành Senior .NET Developer trong 3 năm, đóng góp vào sản phẩm phục vụ hàng triệu người dùng.</p>
+              <h3 class="h6 text-primary">Kỹ năng chính</h3>
+              <ul>
+                <li>C#, ASP.NET Core Web API, Entity Framework Core</li>
+                <li>SQL Server, thiết kế cơ sở dữ liệu</li>
+                <li>HTML5, CSS3, Bootstrap 5, Blazor</li>
+                <li>Git, Docker, GitHub Actions</li>
+              </ul>
+              <h3 class="h6 text-primary">Ngoại ngữ</h3>
+              <p class="mb-0">Tiếng Anh – đọc hiểu tài liệu kỹ thuật tốt.</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cvContactBtn" type="button" class="btn btn-primary">Liên hệ ngay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5.3.3 JS bundle (đã gồm Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
